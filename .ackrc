@@ -1,0 +1,2 @@
+--type-set=puppet=.pp
+--type-set=erb=.erb
