@@ -34,6 +34,7 @@ termcapinfo xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334,{\344,|\366,}\374,~\337'
 
 # 256 colors.
 termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo screen* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # xterm-52 tweaks:
 # - uses background color for delete operations
