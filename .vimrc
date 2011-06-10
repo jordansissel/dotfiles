@@ -5,6 +5,7 @@ set nohlsearch             " hlsearch is annoying
 set foldclose=             " Automatic foldclosing is irritating too
 set noshowmode             " I know what mode I'm in
 set modeline
+set scrolloff=8
 
 " Beeping causes an increase in the urge to kill.
 set noerrorbells           " I hate bells
@@ -87,8 +88,11 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
+map H :prev<CR>
+map L :next<CR>
+
 " Miscellaneous auto commands
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 autocmd BufNewFile,BufRead */Mail/drafts/* setf mail
 autocmd Filetype mail set tw=72 noa
 autocmd FileType perl set comments=f:#
@@ -108,7 +112,24 @@ set guifont=suxus     " Yay fonts!
 let g:menubar=0
 map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 0<CR>:else<CR>:set guioptions+=m<CR>:let g:menubar = 1<CR>:endif<CR>
 
+" Tagbar
+nnoremap <silent> <Leader>f  :TagbarToggle<CR>
+
+
 set guicursor=a:block-blinkoff1
+
+" Programming stuff
+ab XXX: TODO(sissel):
+
+" Tab and Window navigation
+noremap <C-k>n :tabnext<CR>
+noremap <C-k><C-n> :tabnext<CR>
+noremap <C-k>p :tabprev<CR>
+noremap <C-k><C-p> :tabprev<CR>
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
 
 " PyBloxsom stuff
 augroup pybloxsom
@@ -246,16 +267,8 @@ function! IndentToParen(lnum, assume_unclosed)
   return l:ret
 endfunction
 
-" Programming stuff
-ab XXX: TODO(sissel):
-
 let g:lastfile = ""
 nmap <space>s :call SwitchHeaderAndCode()<CR>
-
-noremap <C-k>n :tabnext<CR>
-noremap <C-k><C-n> :tabnext<CR>
-noremap <C-k>p :tabprev<CR>
-noremap <C-k><C-p> :tabprev<CR>
 
 function! SwitchHeaderAndCode()
   let l:basefile = expand("%:t:r")
@@ -292,8 +305,5 @@ function! GPPErrorFilter()
   silent! %s/LEFTSHIFT/<</g
   silent %!awk '/: In/ { print "---------------"; print }; \!/: In/ {print }'
 endfunction
+
 filetype plugin indent on
-
-map \s :silent !screener.sh<CR>
-map \t :TlistToggle<CR>
-

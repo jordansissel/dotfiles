@@ -2,9 +2,11 @@
 alias ls="ls -F"
 alias status="cvs status | grep '^File:' | grep -v 'Up-to-date'"
 which vim > /dev/null 2>&1 && alias vi=vim
-alias vim="vim -X -u $HOME/.vimrc"
+alias vim="vim -p -X -u $HOME/.vimrc"
 unalias rm mv cp 2> /dev/null # no -i madness
+function loadrvm() {
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
+}
 
 
 export LANG=en_US.utf8
@@ -347,6 +349,11 @@ function byteconv() {
 function datelog() {
   [ $# -eq 0 ] && set -- "%F %H:%M:%S]"
   perl -MPOSIX -e 'while (sysread(STDIN,$_,1,length($_)) > 0) { while (s/^(.*?\n)//) { printf("%s %s", strftime($ARGV[0], localtime), $1); } }' "$@"
+}
+
+function pastebin() {
+  curl --data-urlencode "paste_code@${1:--}" http://pastebin.com/api_public.php
+  echo ""  # API doesn't return a newline
 }
 
 # Any special local config?
