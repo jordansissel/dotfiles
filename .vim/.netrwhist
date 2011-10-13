@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/jls/projects/logstash/docs'
+let g:netrw_dirhist_2='/home/jls/loggly/porter/deps/libuuid'
+let g:netrw_dirhist_3='/home/jls/loggly/porter/.git'
+let g:netrw_dirhist_4='/home/jls/.npm'
+let g:netrw_dirhist_5='/home/jls/loggly/infrastructure/puppet/modules/loggly/manifests/proxy'
