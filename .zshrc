@@ -5,7 +5,11 @@ which vim > /dev/null 2>&1 && alias vi=vim
 alias vim="vim -p -X -u $HOME/.vimrc"
 unalias rm mv cp 2> /dev/null # no -i madness
 function loadrvm() {
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
+}
+
+function loadvirtualenv() {
+  . "$HOME/.venvburrito/startup.sh"
 }
 
 
