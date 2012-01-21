@@ -140,8 +140,8 @@ function delpaths {
 # Wrap git so it's easier to wrangle.
 function git {
   case $1 in
-    clone) git-clone "$@"
-    *) =git "$@"
+    clone) git-clone "$@" ;;
+    *) =git "$@" ;;
   esac
 }
 
