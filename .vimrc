@@ -122,10 +122,12 @@ set guicursor=a:block-blinkoff1
 ab XXX: TODO(sissel):
 
 " Tab and Window navigation
-noremap <C-k>n :tabnext<CR>
-noremap <C-k><C-n> :tabnext<CR>
-noremap <C-k>p :tabprev<CR>
-noremap <C-k><C-p> :tabprev<CR>
+noremap <C-n> :tabnext<CR>
+noremap <C-k>n :tabnext<CR>    " muscle memory
+noremap <C-k><C-n> :tabnext<CR>    " muscle memory
+noremap <C-k> :tabnext<CR>
+noremap <C-k>p :tabprev<CR>    " muscle memory
+noremap <C-k><C-p> :tabprev<CR>    " muscle memory
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
