@@ -115,7 +115,7 @@ map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 
 " Tagbar
 nnoremap <silent> <Leader>f  :TagbarToggle<CR>
 
-
+" Turn blinking off
 set guicursor=a:block-blinkoff1
 
 " Programming stuff
@@ -125,7 +125,7 @@ ab XXX: TODO(sissel):
 noremap <C-n> :tabnext<CR>
 noremap <C-k>n :tabnext<CR>    " muscle memory
 noremap <C-k><C-n> :tabnext<CR>    " muscle memory
-noremap <C-p> :tabnext<CR>
+noremap <C-p> :tabprev<CR>
 noremap <C-k>p :tabprev<CR>    " muscle memory
 noremap <C-k><C-p> :tabprev<CR>    " muscle memory
 noremap <C-j> <C-W>j
