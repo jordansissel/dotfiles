@@ -83,13 +83,17 @@ set background=dark
 filetype on
 
 " Mappings to jump me to the beginning of functions
-map [[ ?{<CR>w99[{
-map ][ /}<CR>b99]}
-map ]] j0[[%/{<CR>
-map [] k$][%?}<CR>
+nnoremap [[ ?{<CR>w99[{
+nnoremap ][ /}<CR>b99]}
+nnoremap ]] j0[[%/{<CR>
+nnoremap [] k$][%?}<CR>
 
-map H :prev<CR>
-map L :next<CR>
+" Buffer movement
+nnoremap H :prev<CR>
+nnoremap L :next<CR>
+
+" Ack integration
+nnoremap \a :LAck <cword>
 
 " Miscellaneous auto commands
 "autocmd BufEnter * silent! lcd %:p:h
