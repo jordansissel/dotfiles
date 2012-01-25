@@ -25,4 +25,5 @@ vim_plugin() {
 #dotfiles
 
 # Sync vim plugins
-vim_plugin git://github.com/jordansissel/vim-ackmore.git
+vim_plugin https://github.com/mileszs/ack.vim.git
+vim_plugin https://github.com/jordansissel/vim-ackmore.git
