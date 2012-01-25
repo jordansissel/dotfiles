@@ -1,7 +1,8 @@
+set nocompatible           " Why would I use vim if I wanted it to act like vi?
+" Get pathogen going. Have to do 'set nocompatible' before calling pathogen.
 call pathogen#infect()
 
 " Make vim sane.
-set nocompatible           " Why would I use vim if I wanted it to act like vi?
 set noincsearch            " incsearch is annoying
 set nohlsearch             " hlsearch is annoying
 set foldclose=             " Automatic foldclosing is irritating too
