@@ -10,9 +10,11 @@ set scrolloff=8
 " Beeping causes an increase in the urge to kill.
 set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
+
+" For whatever reason, we ahve to set these in an autocmd
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
-" Sometimes the terminal isn't setup sanely
+" Sometimes the terminal isn't setup sanely, fix backspace.
 imap <C-?> <C-h>
 
 " Syntax and Color
@@ -32,6 +34,12 @@ set cindent                     " Use c-style indentation
 set cinkeys=!^F                 " Only indent when requested
 set cinoptions=(0t0c1           " :help cinoptions-values
 
+" Text folding
+set foldmethod=marker
+
+" I have a dark background...
+set background=dark
+
 " Keep state about my editing, thanks.
 set viminfo='50,\"1000,:100,n~/.viminfo
 
@@ -47,6 +55,15 @@ set smartcase              " Unless I really mean case sensitive
 set list                   " Show me whitespace where I care
 "set number                " Sometimes I like line numbers? Meh. Rarely.
 
+" Some useful miscellaneous options
+set listchars=tab:>-        " In case I want to use the 'list' option
+set matchpairs+=<:>                 " match < > with the % command, too
+set complete=.,w,b,i,t,u          " For great completion justice...
+set backspace=indent,eol            " allow rational backspacing in insert mode
+set formatoptions=tcrqn
+set comments=b:#                    " Most of my files use # for comments
+
+
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
 set titlelen=70
@@ -58,29 +75,15 @@ if &term == "screen" || &term == "xterm"
   set title
 endif
 
-" Some useful miscellaneous options
-set listchars=tab:>-        " In case I want to use the 'list' option
-set matchpairs+=<:>                 " match < > with the % command, too
-set complete=.,w,b,i,t,u          " For great completion justice...
-set backspace=indent,eol            " allow rational backspacing in insert mode
-set formatoptions=tcrqn
-set comments=b:#                    " Most of my files use # for comments
-
 " Some plugins like to contain documentation, hurray!
 if isdirectory("~/.vim/doc")
   helptags ~/.vim/doc
 endif
+
 " Allow filetype plugins (ft_plugin stuff)
-filetype plugin on
-
-" Text folding
-set foldmethod=marker
-
-" I have a dark background...
-set background=dark
-
-" Auto-detect file type
 filetype on
+filetype plugin on
+filetype plugin indent on
 
 " Mappings to jump me to the beginning of functions
 nnoremap [[ ?{<CR>w99[{
@@ -92,52 +95,13 @@ nnoremap [] k$][%?}<CR>
 nnoremap H :prev<CR>
 nnoremap L :next<CR>
 
-" Ack integration.
-" Keep track of the root of the current git repo, if any.
-autocmd BufNewFile,BufRead * let b:gitroot=system("git rev-parse --show-toplevel")
-" Run Ack on the current word starting at the root of this git repo
-nnoremap <Leader>a :execute "LAck <cword> " . b:gitroot<CR>
-nnoremap <Leader>A :execute "Ack <cword> " . b:gitroot<CR>
-" Map 't' on the quickfix window to open the file:line selected
-autocmd FileType qf nnoremap t :call QFOpenCurrentInNewTab()<CR>
-
-function! QFOpenCurrentInNewTab() 
-  " For some reason getqflist() and getloclist() don't seem to work
-  " when Ack is being used. So we have to do this instead.
-  let l:line = line(".") " Get the current line number
-  let l:str = getline(l:line) " Get the current line string
-  " split: filename|number|...
-  let l:values = split(l:str, '|') " Split the line by '|'
-  " open the file:line in a new tab at the given line number
-  execute "tabe +" . l:values[1] . " " . l:values[0]
-endfunction
-
 " Miscellaneous auto commands
 "autocmd BufEnter * silent! lcd %:p:h
-autocmd BufNewFile,BufRead */Mail/drafts/* setf mail
 autocmd Filetype mail set tw=72 noa
 autocmd FileType perl set comments=f:#
 autocmd FileType c,cpp set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType cvs set tw=72
-
-" gVim specific settings
-set guioptions-=T     " Remove the toolbar and menubar
-set guioptions-=m
-set guioptions-=r     " Remove right- and left-hand scrollbars
-set guioptions-=L
-set guioptions+=c     " Console-based dialogs for simple queries
-set guifont=suxus     " Yay fonts!
-
-" Let us toggle the menu
-let g:menubar=0
-map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 0<CR>:else<CR>:set guioptions+=m<CR>:let g:menubar = 1<CR>:endif<CR>
-
-" Tagbar
-nnoremap <silent> <Leader>f  :TagbarToggle<CR>
-
-" Turn blinking off
-set guicursor=a:block-blinkoff1
 
 " Programming stuff
 ab XXX: TODO(sissel):
@@ -153,6 +117,24 @@ noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
+
+" gVim specific settings, not that I really use this.
+set guioptions-=T     " Remove the toolbar and menubar
+set guioptions-=m
+set guioptions-=r     " Remove right- and left-hand scrollbars
+set guioptions-=L
+set guioptions+=c     " Console-based dialogs for simple queries
+set guifont=suxus     " Yay fonts!
+
+" Let us toggle the menu
+let g:menubar=0
+map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 0<CR>:else<CR>:set guioptions+=m<CR>:let g:menubar = 1<CR>:endif<CR>
+
+" Turn blinking off
+set guicursor=a:block-blinkoff1
+
+" Tagbar
+nnoremap <silent> <Leader>f  :TagbarToggle<CR>
 
 " PyBloxsom stuff
 augroup pybloxsom
@@ -328,5 +310,3 @@ function! GPPErrorFilter()
   silent! %s/LEFTSHIFT/<</g
   silent %!awk '/: In/ { print "---------------"; print }; \!/: In/ {print }'
 endfunction
-
-filetype plugin indent on
