@@ -1,5 +1,6 @@
 # Fetch dotfiles
 dotfiles() {
+  # Pull a tarball instead of doing git clone because I don't want $HOME/.git
   curl -Lso - https://github.com/jordansissel/dotfiles/tarball/master \
     | tar --strip-components 1 -C $HOME -zvxf -
 }
