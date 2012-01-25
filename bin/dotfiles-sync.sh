@@ -1,8 +1,11 @@
+#!/bin/sh
+
 # Fetch dotfiles
 dotfiles() {
+  echo "Fetching latest dotfiles"
   # Pull a tarball instead of doing git clone because I don't want $HOME/.git
   curl -Lso - https://github.com/jordansissel/dotfiles/tarball/master \
-    | tar --strip-components 1 -C $HOME -zvxf -
+    | tar --exclude README.md --strip-components 1 -C $HOME -zvxf -
 }
 
 vim_plugin() {
@@ -14,10 +17,10 @@ vim_plugin() {
   [ ! -d "$basedir" ] && mkdir -p "$basedir"
 
   if [ -d "$dir/.git" ] ; then
-    echo "Updating $name"
+    echo "vim plugin: Updating $name"
     (cd $dir; git fetch; git reset --hard origin/master)
   else
-    echo "Cloning $name"
+    echo "vim plugin: Cloning $name"
     (cd $basedir; git clone $repo)
   fi
 }
