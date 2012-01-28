@@ -8,6 +8,9 @@ function loadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
 
+loadrvm
+rvm use 1.9.3
+
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
 }

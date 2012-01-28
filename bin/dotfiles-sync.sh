@@ -32,4 +32,6 @@ dotfiles
 vim_plugin https://github.com/mileszs/ack.vim.git
 vim_plugin https://github.com/jordansissel/vim-ackmore.git
 vim_plugin https://github.com/scrooloose/nerdtree.git
-vim_plugin https://github.com/vim-scripts/ruby-matchit.git
+
+# I have a fork of ruby-matchit to make it a proper ftplugin
+vim_plugin https://github.com/jordansissel/ruby-matchit.git
