@@ -3,7 +3,8 @@ alias ls="ls -F"
 alias status="cvs status | grep '^File:' | grep -v 'Up-to-date'"
 which vim > /dev/null 2>&1 && alias vi=vim
 alias vim="vim -p -X -u $HOME/.vimrc"
-unalias rm mv cp 2> /dev/null # no -i madness
+unalias rm mv cp 2> /dev/null || true # no -i madness
+
 function loadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
@@ -14,7 +15,6 @@ rvm use 1.9.3
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
 }
-
 
 export LANG=en_US.utf8
 
@@ -383,4 +383,6 @@ function pastebin() {
 }
 
 # Any special local config?
-[ -r ~/.zshrc_local ] && . ~/.zshrc_local
+if [ -r ~/.zshrc_local ] ; then
+  . ~/.zshrc_local
+fi
