@@ -32,7 +32,12 @@ dotfiles
 vim_plugin https://github.com/mileszs/ack.vim.git
 vim_plugin https://github.com/jordansissel/vim-ackmore.git
 vim_plugin https://github.com/scrooloose/nerdtree.git
-vim_plugin https://github.com/vim-scripts/taglist.vim.git
+vim_plugin https://github.com/wincent/Command-T.git
+vim_plugin https://github.com/majutsushi/tagbar.git
 
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
+
+#vim_plugin https://github.com/vim-scripts/taglist.vim.git
+rm -rf $HOME/.vim/bundle/taglist.vim
+

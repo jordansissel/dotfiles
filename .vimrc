@@ -106,10 +106,14 @@ autocmd FileType c,cpp set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType cvs set tw=72
 
+" For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
 let g:ConqueTerm_InsertOnEnter = 1
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_TERM = 'xterm'
+
+" Tagbar plugin
+nnoremap <silent> <Leader>f  :TagbarToggle<CR>
 
 " These mappings don't actually work, probably because conqueshell happens
 " afterwards. Hmmm
@@ -145,9 +149,6 @@ map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 
 
 " Turn blinking off
 set guicursor=a:block-blinkoff1
-
-" Tagbar
-nnoremap <silent> <Leader>f  :TagbarToggle<CR>
 
 " PyBloxsom stuff
 augroup pybloxsom
