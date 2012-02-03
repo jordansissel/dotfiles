@@ -106,12 +106,15 @@ autocmd FileType c,cpp set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType cvs set tw=72
 
-nnoremap <Leader>c :ConqueTermTab zsh
+nnoremap <Leader>c :ConqueTermTab zsh<CR>
 let g:ConqueTerm_InsertOnEnter = 1
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_TERM = 'xterm'
-autocmd FileType conque_term inoremap <C-n> :tabnext<CR>
-autocmd FileType conque_term inoremap <C-p> :tabnext<CR>
+
+" These mappings don't actually work, probably because conqueshell happens
+" afterwards. Hmmm
+"autocmd FileType conque_term inoremap <silent> <buffer> <C-n> <Esc>:tabnext<CR>
+"autocmd FileType conque_term inoremap <silent> <buffer> <C-p> <Esc>:tabnext<CR>
 
 " Programming stuff
 ab XXX: TODO(sissel):
