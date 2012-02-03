@@ -106,10 +106,12 @@ autocmd FileType c,cpp set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java set comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType cvs set tw=72
 
-nnoremap <Leader>c :ConqueTermShell zsh
+nnoremap <Leader>c :ConqueTermTab zsh
 let g:ConqueTerm_InsertOnEnter = 1
 let g:ConqueTerm_ReadUnfocused = 1
-let g:ConqueTerm_TERM = 'screen'
+let g:ConqueTerm_TERM = 'xterm'
+autocmd FileType conque_term inoremap <C-n> :tabnext<CR>
+autocmd FileType conque_term inoremap <C-p> :tabnext<CR>
 
 " Programming stuff
 ab XXX: TODO(sissel):
