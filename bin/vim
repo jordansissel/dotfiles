@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# what.
+#
+# So I found Conque: http://www.vim.org/scripts/script.php?script_id=2771
+# It lets me run a shell in a vim buffer, but what if something I run
+# from that shell (git commit, etc) invokes vim? Running vim inside vim
+# seems not awesome.
+#
+# Instead, use vim's neat --remote features. If we are running inside
+# of a Conque subprocess, and vim is invoked, tell vim to open all
+# files in new tabs and wait until those buffers are closed.
+#
+# This should let me 'git commit' from a Conque-driven zsh and
+# have the commit message editing show up in a new tab.
+
+# Find another vim.
+ENV["PATH"].split(":").each do |path|
+  vim = File.join(path, "vim")
+  if File.executable?(vim)
+    next if __FILE__ == vim
+
+    # If no DISPLAY is set, then there's no point in trying to use
+    # the vim remote stuff anyway.
+    if ENV["DISPLAY"].nil?
+      exec(vim, *ARGV)
+    end
+
+    # If we are running inside a Conque term, tell vim to launch a new tab 
+    # This will let us run 'vim foo' from Conque (within vim), have it block
+    # like vim would, but instead of a new vim it will open a new tab in the
+    # current vim that Conque is living in.
+    if ENV["CONQUE"] == "1"
+      ARGV.unshift("--remote-tab-wait")
+    end
+    ARGV.unshift("--servername", "HURRAYVIM")
+
+    exec(vim, *ARGV)
+  end
+end
