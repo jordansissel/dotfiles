@@ -108,7 +108,9 @@ autocmd FileType cvs set tw=72
 
 " For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
-let g:ConqueTerm_InsertOnEnter = 1
+
+" Don't go into insert mode when the buffer is focused
+let g:ConqueTerm_InsertOnEnter = 0
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_TERM = 'xterm'
 
