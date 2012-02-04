@@ -32,8 +32,15 @@ dotfiles
 vim_plugin https://github.com/mileszs/ack.vim.git
 vim_plugin https://github.com/jordansissel/vim-ackmore.git
 vim_plugin https://github.com/scrooloose/nerdtree.git
-vim_plugin https://github.com/wincent/Command-T.git
 vim_plugin https://github.com/majutsushi/tagbar.git
+
+# Compiling required for Command-T
+vim_plugin https://github.com/wincent/Command-T.git
+(
+  cd $HOME/.vim/bundle/Command-T/ruby/command-t/
+  ruby extconf.rb
+  make
+)
 
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
