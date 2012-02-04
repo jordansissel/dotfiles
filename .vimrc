@@ -119,6 +119,8 @@ nnoremap <silent> <Leader>f :TagbarToggle<CR>
 set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
 nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
 nnoremap <silent> <Leader>b :CommandTBuffer<CR>
+nnoremap <silent> <C-/> :CommandTBuffer<CR>
+nnoremap <silent> <C-'> :execute "CommandT " . b:gitroot<CR>
 
 " These mappings don't actually work, probably because conqueshell happens
 " afterwards. Hmmm
