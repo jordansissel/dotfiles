@@ -45,6 +45,10 @@ vim_plugin https://github.com/wincent/Command-T.git
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
 
+# I have a fork of conque
+rm -rf $HOME/.vim/bundle/conque_2.3
+vim_plugin https://github.com/jordansissel/conque
+
 #vim_plugin https://github.com/vim-scripts/taglist.vim.git
 rm -rf $HOME/.vim/bundle/taglist.vim
 
