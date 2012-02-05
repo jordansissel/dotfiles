@@ -27,6 +27,7 @@ vim_plugin() {
 
 # Sync dotfiles
 dotfiles
+rm ~/bin/vim
 
 # Sync vim plugins
 vim_plugin https://github.com/mileszs/ack.vim.git
