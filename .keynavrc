@@ -45,6 +45,10 @@ semicolon warp,end
 1 click 1
 2 click 2
 3 click 3
+alt+1 start,sh xdotool set_desktop 0,end
+alt+2 start,sh xdotool set_desktop 1,end
+alt+3 start,sh xdotool set_desktop 2,end
+alt+4 start,sh xdotool set_desktop 3,end
 #1 cell-select 1x1,warp,end
 #2 cell-select 1x2,warp,end
 #3 cell-select 2x1,warp,end
