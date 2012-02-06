@@ -4,7 +4,7 @@ alias status="cvs status | grep '^File:' | grep -v 'Up-to-date'"
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
-#alias vim="vim -p -X -u $HOME/.vimrc"
+alias vim="vim -p -X -u $HOME/.vimrc"
 
 function __vim() {
   if [ "$CONQUE" -eq 1 ] ; then
