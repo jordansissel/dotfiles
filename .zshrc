@@ -150,10 +150,11 @@ function git {
 }
 
 function git-clone {
-  if [ "${2##github/}" != "$2" ] ; then
+  if [ "${2##*/*}" != "$2" ] ; then
     # Replace github/<thing> with 'git clone ... proper github url'
-    repo="${2##github/}"
-    git clone git@github.com:$repo.git
+    repo="$2"
+    =git clone git@github.com:$repo.git
+    cd $(basename $repo)
   else
     =git "$@"
   fi
