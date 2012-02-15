@@ -8,23 +8,6 @@ dotfiles() {
     | tar --exclude README.md --strip-components 1 -C $HOME -zvxf -
 }
 
-vim_plugin() {
-  repo="$1"
-  basedir="$HOME/.vim/bundle"
-  name="$(basename ${repo%%.git})"
-  dir="$basedir/$name"
-
-  [ ! -d "$basedir" ] && mkdir -p "$basedir"
-
-  if [ -d "$dir/.git" ] ; then
-    echo "vim plugin: Updating $name"
-    (cd $dir; git fetch; git reset --hard origin/master)
-  else
-    echo "vim plugin: Cloning $name"
-    (cd $basedir; git clone $repo)
-  fi
-}
-
 # Sync dotfiles
 dotfiles
 rm ~/bin/vim
