@@ -6,19 +6,6 @@ unalias rm mv cp 2> /dev/null || true # no -i madness
 
 alias vim="vim -p -X -u $HOME/.vimrc"
 
-function __vim() {
-  if [ "$CONQUE" -eq 1 ] ; then
-    # Running on conque
-    if [ -z "$DISPLAY" ] ; then
-      echo "No \$DISPLAY, refusing to run vim from within CONQUE"
-      return 1
-    fi
-    =vim --servername YAAYVIM --remote-tab-wait "$@"
-  else
-    =vim --servername YAAYVIM -p -u $HOME/.vimrc "$@"
-  fi
-}
-
 function loadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
