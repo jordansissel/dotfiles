@@ -9,6 +9,9 @@ xmodmap -e "add Control = Control_R Control_R"
 xmodmap -e "keycode 67 = Escape"
 #xmodmap -e "keysym F12 = "
 
+# disable touchpad
+xinput float $(xinput list --short | grep 'TouchPad' | sed -re 's/.*id=([0-9]+).*/\1/')
+
 # Make middle-click-hold scroll with the trackpoint
 # from http://forums.fedoraforum.org/showthread.php?t=245729
 xinput list | sed -ne 's/^[^ ][^V].*id=\([0-9]*\).*/\1/p' | while read id
