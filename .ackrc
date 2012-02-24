@@ -1,5 +1,7 @@
 --type-set=puppet=.pp
 --type-set=erb=.erb
+--ignore-dir=coverage
+--ignore-dir=.yardoc
 --ignore-dir=build
 --ignore-dir=vendor
 --ignore-dir=tmp
