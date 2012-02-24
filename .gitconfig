@@ -4,4 +4,7 @@
 [alias]
   st = status -s
 [push]
-	default = current
+  default = current
+[heroku]
+  account = jls@heroku.com
+
