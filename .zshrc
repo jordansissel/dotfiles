@@ -219,6 +219,11 @@ UNAME="$(uname)"
 # title/precmd/postcmd
 function precmd() {
   title "zsh - $PWD"
+  duration=$(( $(date +%s) - cmd_start_time ))
+
+  if [ $duration -gt 5 ] ; then
+    tmux display-message "($duration secs): $lastcmd"
+  fi
 }
 
 function preexec() {
@@ -246,6 +251,10 @@ function preexec() {
   else
   fi
   title "$cmd"
+
+  # These are used in precmd
+  cmd_start_time=$(date +%s)
+  lastcmd="$cmd"
 }
 
 function title() {
