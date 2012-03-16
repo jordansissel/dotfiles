@@ -221,9 +221,10 @@ function precmd() {
   title "zsh - $PWD"
   duration=$(( $(date +%s) - cmd_start_time ))
 
-  if [ $duration -gt 5 ] ; then
+  if [ $duration -gt 5 -a ! -z "$lastcmd" ] ; then
     tmux display-message "($duration secs): $lastcmd"
   fi
+  lastcmd=""
 }
 
 function preexec() {
