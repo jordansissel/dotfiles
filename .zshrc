@@ -221,8 +221,14 @@ function precmd() {
   title "zsh - $PWD"
   duration=$(( $(date +%s) - cmd_start_time ))
 
-  if [ $duration -gt 5 -a ! -z "$lastcmd" ] ; then
-    tmux display-message "($duration secs): $lastcmd"
+  # Notify if the previous command took more than 5 seconds.
+  if [ $duration -gt 5 ] ; then
+    case "$lastcmd" in
+      vi*) ;; # vi, don't notify
+      "") ;; # no previous command, don't notify
+      *) 
+        tmux display-message "($duration secs): $lastcmd"
+    esac
   fi
   lastcmd=""
 }
@@ -249,13 +255,13 @@ function preexec() {
       done
     fi
     cmd="${jobtexts[${jobnum#%}]}"
-  else
   fi
-  title "$cmd"
 
   # These are used in precmd
   cmd_start_time=$(date +%s)
   lastcmd="$cmd"
+
+  title "$cmd"
 }
 
 function title() {
@@ -273,7 +279,7 @@ function title() {
   value="%70>...>$value%<<"
   unset PROMPT_SUBST
   case $TERM in
-    screen)
+    screen|screen-256color)
       # Put this in your .screenrc:
       # hardstatus string "[%n] %h - %t"
       # termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen (not title yet)\007'
