@@ -172,6 +172,8 @@ addpaths /var/lib/gems/1.8/bin
 addpaths /usr/local/jruby-1.5.2/bin
 addpaths ~/gentoo/bin ~/gentoo/usr/bin
 PATH="$HOME/bin:$HOME/local/bin:$PATH"
+export GOROOT=$HOME/go
+addpaths $GOROOT/bin
 
 
 # Periodic Reminder!
