@@ -40,7 +40,9 @@ HISTFILE=~/.history_zsh
 # hack to fix that problem:
 # This was supposed to get fixed before Go 1, but it was not: 
 # http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
-export GOPATH=/proc/self/cwd
+# This was previously /proc/self/cwd, but 'go build' changes directory, so now
+# it needs to be the working directory of the shell, not of 'go build'
+export GOPATH=/proc/$$/cwd
 
 # I hate ls colors...
 export LS_COLORS=
