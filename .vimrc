@@ -19,6 +19,10 @@ set visualbell             " But saying noerrorbells doesn't do it all
 " For whatever reason, we ahve to set these in an autocmd
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
+" looks like vim's go support highlights leading and trailing whitespace.
+" it's fucking annoying, so let's turn it off
+let go_highlight_trailing_whitespace_error=0
+
 " Sometimes the terminal isn't setup sanely, fix backspace.
 imap <C-?> <C-h>
 
