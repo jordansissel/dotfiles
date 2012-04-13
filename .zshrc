@@ -38,7 +38,9 @@ HISTFILE=~/.history_zsh
 # For some reason, golang doesn't have smart defaults. For pretty much every
 # invocation, I have to set 'GOPATH=$PWD' in environment. So this is a nice
 # hack to fix that problem:
-export GOPATH=/proc/$$/cwd
+# This was supposed to get fixed before Go 1, but it was not: 
+# http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
+export GOPATH=/proc/self/cwd
 
 # I hate ls colors...
 export LS_COLORS=
