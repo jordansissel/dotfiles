@@ -6,6 +6,18 @@ unalias rm mv cp 2> /dev/null || true # no -i madness
 
 alias vim="vim -p -X -u $HOME/.vimrc"
 
+# Lots of command examples (especially heroku) lead command docs with '$' which
+# make it kind of annoying to copy/paste, especially when there's multiple
+# commands to copy.
+#
+# This hacks around the problem by making a '$' command that simply runs
+# whatever arguments are passed to it. So you can copy
+#   '$ echo hello world'
+# and it will run 'echo hello world'
+function \$() { 
+  "$@"
+}
+
 function loadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
