@@ -423,6 +423,24 @@ function pastebin() {
   echo ""  # API doesn't return a newline
 }
 
+# From petef's zshrc
+function scp() {
+  found=false
+  for arg; do
+    if [ "${arg%%:*}" != "${arg}" ]; then
+      found=true
+      break
+    fi
+  done
+
+  if ! $found; then
+    echo "scp: no remote location specified" >&2
+    return 1
+  fi
+
+  =scp "$@"
+}
+
 # Any special local config?
 if [ -r ~/.zshrc_local ] ; then
   . ~/.zshrc_local
