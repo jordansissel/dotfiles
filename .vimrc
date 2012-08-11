@@ -52,6 +52,9 @@ set background=dark
 " Keep state about my editing, thanks.
 set viminfo='50,\"1000,:100,n~/.viminfo
 
+" for slides
+map <Leader>s :r!showoff add NEW SLIDE<CR>
+
 " Make backups, just in case?
 "set backup
 
