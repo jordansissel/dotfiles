@@ -13,3 +13,4 @@ dotfiles
 rm ~/bin/vim
 
 vimplugin-sync.sh
+chmod 644 ~/.ssh/config
