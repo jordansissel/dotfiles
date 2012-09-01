@@ -30,6 +30,7 @@ function loadvirtualenv() {
 }
 
 export LANG=en_US.utf8
+export JRUBY_OPTS=--1.9
 
 # Revision Control
 
