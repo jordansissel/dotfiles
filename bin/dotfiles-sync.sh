@@ -14,3 +14,4 @@ rm ~/bin/vim
 
 vimplugin-sync.sh
 chmod 600 ~/.ssh/config
+chmod 700 ~/.ssh
