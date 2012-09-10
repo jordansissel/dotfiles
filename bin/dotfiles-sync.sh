@@ -1,5 +1,7 @@
 #!/bin/sh
 
+umask 022
+
 # Fetch dotfiles
 dotfiles() {
   echo "Fetching latest dotfiles"
@@ -13,5 +15,5 @@ dotfiles
 rm ~/bin/vim
 
 vimplugin-sync.sh
-chmod 600 ~/.ssh/config
+chmod 600 ~/.ssh/*
 chmod 700 ~/.ssh
