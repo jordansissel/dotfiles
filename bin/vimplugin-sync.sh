@@ -23,6 +23,8 @@ vim_plugin https://github.com/jordansissel/vim-ackmore.git
 vim_plugin https://github.com/scrooloose/nerdtree.git
 vim_plugin https://github.com/majutsushi/tagbar.git
 vim_plugin https://github.com/vim-scripts/DrawIt.git
+vim_plugin https://github.com/jpalardy/vim-slime.git
+
 
 # Compiling required for Command-T
 vim_plugin https://github.com/wincent/Command-T.git
