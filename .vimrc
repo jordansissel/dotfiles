@@ -349,10 +349,11 @@ function! s:ExecuteInShell(command)
   echom 'Executing: ' . command
   let output = system(command)
   if v:shell_error != 0
-    execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+    execute winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
     setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
     call append(".", split(output, "\n"))
-    execute 'resize ' . line('$')
+    "execute 'resize ' . line('$')
+    resize 5
     redraw
     execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
@@ -363,5 +364,8 @@ function! s:ExecuteInShell(command)
   endif
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+command! SelfTest Shell ruby $HOME/.vim/test.rb -R %
+nnoremap <Leader>t :SelfTest<CR>
 
-nnoremap <Leader>t :Shell ruby $HOME/.vim/test.rb %<CR>
+autocmd BufWritePost *.rb SelfTest
+autocmd BufWritePost *.pp SelfTest
