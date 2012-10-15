@@ -18,8 +18,9 @@ class DevTool < Clamp::Command
   end # def logger
 
   def execute
-    logger.level = :info
+    logger.level = :warn
     logger.subscribe(STDOUT)
+
     if root?
       gitroot = `git rev-parse --show-toplevel`.split("\n").first
       @chdir = gitroot if !gitroot.nil?
@@ -62,9 +63,12 @@ class DevTool < Clamp::Command
     end
 
     case path
-      when /^spec\// ; return [:rspec, path]
-      when /^test\// ; return [:ruby, path]
-      else ; return [:syntax, path]
+      when /^spec\// ; return ["rspec", path]
+      when /^test\// ; return ["ruby", path]
+      when /\.rb$/ ; return [ "ruby", "-c", path]
+      when /\.sh$/ ; return [ "sh", "-n", path]
+      when /\.pp$/ ; return [ "puppet", "parser", "validate", path ]
+      else ; logger.warn("Don't know how to test", :path => path)
     end
   end # def tests_for_path
 end # class DevTool
