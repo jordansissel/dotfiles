@@ -127,11 +127,11 @@ let g:ConqueTerm_TERM = 'xterm'
 nnoremap <silent> <Leader>f :TagbarToggle<CR>
 
 " Command-T plugin
-set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
-nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
-nnoremap <silent> <Leader>b :CommandTBuffer<CR>
-" control+/ shows up in the terminal as ^_, so map C-_ to make it happen.
-nnoremap <silent> <C-_> :execute "CommandT " . b:gitroot<CR>
+"set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
+"nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
+"nnoremap <silent> <Leader>b :CommandTBuffer<CR>
+"" control+/ shows up in the terminal as ^_, so map C-_ to make it happen.
+"nnoremap <silent> <C-_> :execute "CommandT " . b:gitroot<CR>
 
 " These mappings don't actually work, probably because conqueshell happens
 " afterwards. Hmmm
