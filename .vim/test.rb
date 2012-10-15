@@ -41,14 +41,12 @@ class DevTool < Clamp::Command
     tests = relative_paths.collect { |p| tests_for_path(p) }.select { |p| !p.nil? }
 
     success = true
-    tests.each do |runner, path|
-      case runner
-        when :rspec ; system("rspec", path)
-        when :ruby ; system("ruby", path)
-        when :syntax ; system("ruby", "-c", path)
-      end
-      success ||= $?.success?
+    tests.each do |cmd|
+      system(*cmd)
+      success &&= $?.success?
     end # tests.each
+
+    return success ? 0 : 1
   end # def execute
 
   def tests_for_path(path)
@@ -70,7 +68,9 @@ class DevTool < Clamp::Command
       when /\.pp$/ ; return [ "puppet", "parser", "validate", path ]
       else ; logger.warn("Don't know how to test", :path => path)
     end
+
+    return nil
   end # def tests_for_path
 end # class DevTool
 
-DevTool.run
+exit(DevTool.run)
