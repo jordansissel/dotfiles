@@ -355,6 +355,8 @@ function! s:ExecuteInShell(command)
     "execute 'resize ' . line('$')
     resize 5
     redraw
+    autocmd BufEnter <buffer> resize 15
+    autocmd BufLeave <buffer> resize 5
     execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
     execute 'nnoremap <silent> <buffer> q :q<CR>'
