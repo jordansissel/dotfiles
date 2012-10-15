@@ -27,12 +27,13 @@ vim_plugin https://github.com/jpalardy/vim-slime.git
 
 
 # Compiling required for Command-T
-vim_plugin https://github.com/wincent/Command-T.git
-(
-  cd $HOME/.vim/bundle/Command-T/ruby/command-t/
-  ruby extconf.rb
-  make
-)
+#vim_plugin https://github.com/wincent/Command-T.git
+#(
+  #cd $HOME/.vim/bundle/Command-T/ruby/command-t/
+  #ruby extconf.rb
+  #make
+#)
+[ -d $HOME/.vim/bundle/Command-T ] && rm -rf $HOME/.vim/bundle/Command-T
 
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
