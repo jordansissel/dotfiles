@@ -351,6 +351,8 @@ function! s:ExecuteInShell(command)
   if v:shell_error != 0
     execute winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
     setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+
+    normal 1GdG
     call append(".", split(output, "\n"))
     "execute 'resize ' . line('$')
     resize 5
