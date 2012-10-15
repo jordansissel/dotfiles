@@ -127,11 +127,11 @@ let g:ConqueTerm_TERM = 'xterm'
 nnoremap <silent> <Leader>f :TagbarToggle<CR>
 
 " Command-T plugin
-"set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
-"nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
-"nnoremap <silent> <Leader>b :CommandTBuffer<CR>
-"" control+/ shows up in the terminal as ^_, so map C-_ to make it happen.
-"nnoremap <silent> <C-_> :execute "CommandT " . b:gitroot<CR>
+set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
+nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
+nnoremap <silent> <Leader>b :CommandTBuffer<CR>
+" control+/ shows up in the terminal as ^_, so map C-_ to make it happen.
+nnoremap <silent> <C-_> :execute "CommandT " . b:gitroot<CR>
 
 " These mappings don't actually work, probably because conqueshell happens
 " afterwards. Hmmm
@@ -342,3 +342,21 @@ function! GPPErrorFilter()
   silent! %s/LEFTSHIFT/<</g
   silent %!awk '/: In/ { print "---------------"; print }; \!/: In/ {print }'
 endfunction
+
+function! s:ExecuteInShell(command)
+  let command = join(map(split(a:command), 'expand(v:val)'))
+  let winnr = bufwinnr('^' . command . '$')
+  silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  silent! execute 'resize ' . line('$')
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+  silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+  echo 'Shell command ' . command . ' executed.'
+endfunction
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+
+nnoremap <Leader>t :Shell ruby $HOME/.vim/test.rb %<CR>
