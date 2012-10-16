@@ -346,7 +346,6 @@ endfunction
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
   let winnr = bufwinnr('^' . command . '$')
-  echom 'Executing: ' . command
   let output = system(command)
   if v:shell_error != 0
     execute winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
@@ -362,13 +361,10 @@ function! s:ExecuteInShell(command)
     execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
     execute 'nnoremap <silent> <buffer> q :q<CR>'
-    echom "Failed: " . command
-  else
-    echom "Success: " . command
   endif
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-command! SelfTest Shell ruby $HOME/.vim/test.rb -R %
+command! SelfTest Shell which dk && dk test %
 nnoremap <Leader>t :SelfTest<CR>
 
 autocmd BufWritePost *.rb SelfTest
