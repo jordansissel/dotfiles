@@ -59,7 +59,8 @@ map <Leader>s :r!showoff add NEW SLIDE<CR>
 "set backup
 
 " Interface goodness
-set ruler                  " Give me a ruler, tell me where I am in the file.
+set noruler
+set laststatus=2           " Enable status bar
 set showcmd                " Show me the vi command in the ruler
 set showmatch              " Show me matching close braces
 set ignorecase             " Case insensitive searching
