@@ -9,7 +9,7 @@ end # def with
 
 class DevTool < Clamp::Command
   option ["--chdir", "-C"], "CHDIR", "Path to chdir too"
-  option ["--root", "-R"], :flag, "chdir to project root"
+  option ["--root", "-R"], :flag, "chdir to project root", :default => true
 
   parameter "FILES ...", "Files to run against", :attribute_name => :files
 
