@@ -362,10 +362,15 @@ function! s:ExecuteInShell(command)
     execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
     execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
     execute 'nnoremap <silent> <buffer> q :q<CR>'
+  else
+    " Success, if the previous output buffer exists, delete and close it.
+    if winnr >= 0
+      execute "bdelete" winnr
+    end
   endif
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-command! SelfTest Shell which dk && dk test %
+command! SelfTest Shell dk test %
 nnoremap <Leader>t :SelfTest<CR>
 
 autocmd BufWritePost *.rb SelfTest
