@@ -370,8 +370,8 @@ function! s:ExecuteInShell(command)
   endif
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-command! SelfTest Shell which ruby | grep -v jruby && dk test %
+command! SelfTest Shell dk test %
 nnoremap <Leader>t :SelfTest<CR>
 
-autocmd BufWritePost *.rb SelfTest
-autocmd BufWritePost *.pp SelfTest
+"autocmd BufWritePost *.rb SelfTest
+"autocmd BufWritePost *.pp SelfTest
