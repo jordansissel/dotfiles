@@ -18,11 +18,11 @@ function \$() {
   "$@"
 }
 
-function loadrvm() {
+function sufferanguishandloadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
 
-loadrvm
+sufferanguishandloadrvm
 rvm use 1.7.0
 
 function loadvirtualenv() {
