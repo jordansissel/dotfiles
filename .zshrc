@@ -23,7 +23,7 @@ function loadrvm() {
 }
 
 loadrvm
-rvm use 1.9.3
+rvm use 1.7.0
 
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
