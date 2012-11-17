@@ -25,12 +25,13 @@ function sufferanguishandloadrvm() {
 sufferanguishandloadrvm
 rvm use 1.7.0
 
+
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
 }
 
 export LANG=en_US.utf8
-export JRUBY_OPTS=--1.9
+export JRUBY_OPTS="--1.9 --ng"
 
 # Bundler behaves quite badly. Sometimes it writes the flags/config for the
 # current invocation to ./.bundle/config, and any future 'bundle install' 
