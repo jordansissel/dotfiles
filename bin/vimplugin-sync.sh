@@ -27,6 +27,8 @@ vim_plugin https://github.com/jpalardy/vim-slime.git
 #vim_plugin https://github.com/pydave/AsyncCommand.git
 rm -rf $HOME/.vim/bundle/AsyncCommand
 vim_plugin https://github.com/Lokaltog/vim-powerline.git
+vim_plugin https://github.com/tpope/vim-fugitive.git
+vim_plugin https://github.com/tpope/vim-unimpaired.git
 
 
 # Compiling required for Command-T
