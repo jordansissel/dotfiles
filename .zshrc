@@ -172,24 +172,7 @@ function delpaths {
   done
 }
 
-# Wrap git so it's easier to wrangle.
-function git {
-  case $1 in
-    clone) git-clone "$@" ;;
-    *) =git "$@" ;;
-  esac
-}
-
-function git-clone {
-  if [ "${2##*/*}" != "$2" ] ; then
-    # Replace github/<thing> with 'git clone ... proper github url'
-    repo="$2"
-    =git clone git@github.com:$repo.git
-    cd $(basename $repo)
-  else
-    =git "$@"
-  fi
-}
+which hub > /dev/null 2>&1 && alias git=hub
 
 # Make sure things are in my paths
 BASE_PATHS="/bin /usr/bin /sbin /usr/sbin"
