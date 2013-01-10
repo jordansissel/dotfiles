@@ -23,7 +23,7 @@ function sufferanguishandloadrvm() {
 }
 
 sufferanguishandloadrvm
-rvm use 1.7.0
+rvm use 1.7.2
 
 
 function loadvirtualenv() {
