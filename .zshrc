@@ -25,6 +25,12 @@ function sufferanguishandloadrvm() {
 sufferanguishandloadrvm
 rvm use 1.7.2
 
+# make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
+which hub > /dev/null 2>&1 && alias git='rvm default do hub'
+
+# run vim without rvm's influence.
+alias vim="rvm default do vim -p -X -u $HOME/.vimrc"
+
 
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
@@ -172,7 +178,6 @@ function delpaths {
   done
 }
 
-which hub > /dev/null 2>&1 && alias git=hub
 
 # Make sure things are in my paths
 BASE_PATHS="/bin /usr/bin /sbin /usr/sbin"
