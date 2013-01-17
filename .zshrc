@@ -186,6 +186,7 @@ LOCAL_PATHS="/usr/local/bin /usr/local/gnu/bin"
 SOLARIS_PATHS="/opt/SUNWspro/bin /usr/ccs/bin /opt/csw/bin"
 HOME_PATHS="~/bin"
 addpaths $=BASE_PATHS $=X_PATHS $=LOCAL_PATHS $=SOLARIS_PATHS $=HOME_PATHS
+addpaths /opt/vagrant/bin
 addpaths ~/projects/tools
 addpaths /var/lib/gems/1.8/bin
 addpaths /usr/local/jruby-1.5.2/bin
