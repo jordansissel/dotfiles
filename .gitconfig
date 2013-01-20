@@ -5,6 +5,4 @@
   st = status -s
 [push]
   default = current
-[heroku]
-  account = jls@heroku.com
 
