@@ -32,7 +32,9 @@ which hub > /dev/null 2>&1 && alias git='rvm default do hub'
 # Note: can't use "rvm default do vim ..." because for whatever reason
 # backgrounding vim, then 'fg' always hangs zsh, so I use a subshell to select
 # ruby
-alias vim="(rvm use default; vim -p -X -u $HOME/.vimrc)"
+function vim() {
+  (rvm use default; =vim -p -X -u $HOME/.vimrc "$@")
+}
 
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
