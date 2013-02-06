@@ -26,7 +26,11 @@ sufferanguishandloadrvm
 rvm use 1.7.2
 
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
-which hub > /dev/null 2>&1 && alias git='rvm default do hub'
+if which hub > /dev/null 2>&1 ; then
+  function git() {
+    ( rvm use default; =hub "$@" )
+  }
+fi
 
 # run vim without rvm's influence.
 # Note: can't use "rvm default do vim ..." because for whatever reason
