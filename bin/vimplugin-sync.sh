@@ -3,18 +3,32 @@
 vim_plugin() {
   repo="$1"
   basedir="$HOME/.vim/bundle"
-  name="$(basename ${repo%%.git})"
-  dir="$basedir/$name"
 
   [ ! -d "$basedir" ] && mkdir -p "$basedir"
 
-  if [ -d "$dir/.git" ] ; then
-    echo "vim plugin: Updating $name"
-    (cd $dir; git fetch; git reset --hard origin/$(git branch | grep '^\* ' | cut -b 3-))
-  else
-    echo "vim plugin: Cloning $name"
-    (cd $basedir; git clone $repo)
-  fi
+  case $repo in
+    */scripts/download_script.php\?src_id=*)
+      name="${repo##*src_id=}"
+      dir="$basedir/$name"
+      mkdir -p $dir/plugin/
+      wget -O "$dir/plugin/$name.vim" "$repo"
+      ;;
+    *.git) 
+      name="$(basename ${repo%%.git})"
+      dir="$basedir/$name"
+      if [ -d "$dir/.git" ] ; then
+        echo "vim plugin: Updating $name"
+        (
+          cd $dir
+          git fetch
+          git reset --hard origin/$(git branch | grep '^\* ' | cut -b 3-)
+        )
+      else
+        echo "vim plugin: Cloning $name"
+        (cd $basedir; git clone $repo)
+      fi
+      ;;
+  esac
 }
 
 # Sync vim plugins
@@ -30,6 +44,8 @@ rm -rf $HOME/.vim/bundle/AsyncCommand
 vim_plugin https://github.com/Lokaltog/vim-powerline.git
 vim_plugin https://github.com/tpope/vim-fugitive.git
 vim_plugin https://github.com/tpope/vim-unimpaired.git
+
+vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
 
 
 # Compiling required for Command-T
