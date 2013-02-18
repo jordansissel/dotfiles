@@ -76,6 +76,8 @@ set backspace=indent,eol            " allow rational backspacing in insert mode
 set formatoptions=tocrqn
 set comments=b:#,s1:/*,mb:\ *,ex:*/,f://                   " Most of my files use # for comments
 
+" html style closetag (not xml)
+let g:closetag_html_style=1 
 
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
