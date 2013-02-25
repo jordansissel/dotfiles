@@ -378,7 +378,7 @@ function sum() {
   [ "${1#-F}" != "$1" ] && SP=${1} && shift
   [ "$#" -eq 0 ] && set -- 0
   key="$(_awk_col "$1")"
-  awk $SP "{ x+=$key } END { printf(\"%d\n\", x) }"
+  awk $SP "{ x+=$key } END { printf(\"%f\n\", x) }"
 }
 
 function sumby() {
@@ -386,14 +386,14 @@ function sumby() {
   [ "$#" -lt 0 ] && set -- 0 1
   key="$(_awk_col "$1")"
   val="$(_awk_col "$2")"
-  awk $SP "{ a[$key] += $val } END { for (i in a) { printf(\"%d %s\\n\", a[i], i) } }"
+  awk $SP "{ a[$key] += $val } END { for (i in a) { printf(\"%f %s\\n\", a[i], i) } }"
 }
 
 function countby() {
   [ "${1#-F}" != "$1" ] && SP=${1} && shift
   [ "$#" -eq 0 ] && set -- 0
   key="$(_awk_col "$1")"
-  awk $SP "{ a[$key]++ } END { for (i in a) { printf(\"%d %s\\n\", a[i], i) } }"
+  awk $SP "{ a[$key]++ } END { for (i in a) { printf(\"%f %s\\n\", a[i], i) } }"
 }
 
 function bytes() {

@@ -24,6 +24,7 @@ vim_plugin https://github.com/scrooloose/nerdtree.git
 vim_plugin https://github.com/majutsushi/tagbar.git
 vim_plugin https://github.com/vim-scripts/DrawIt.git
 vim_plugin https://github.com/jpalardy/vim-slime.git
+vim_plugin https://github.com/altercation/vim-colors-solarized.git
 #vim_plugin https://github.com/pydave/AsyncCommand.git
 rm -rf $HOME/.vim/bundle/AsyncCommand
 vim_plugin https://github.com/Lokaltog/vim-powerline.git

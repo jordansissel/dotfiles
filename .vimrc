@@ -73,8 +73,8 @@ set listchars=tab:>-        " In case I want to use the 'list' option
 set matchpairs+=<:>                 " match < > with the % command, too
 set complete=.,w,b,i,t,u          " For great completion justice...
 set backspace=indent,eol            " allow rational backspacing in insert mode
-set formatoptions=tcrqn
-set comments=b:#                    " Most of my files use # for comments
+set formatoptions=tocrqn
+set comments=b:#,s1:/*,mb:\ *,ex:*/,f://                   " Most of my files use # for comments
 
 
 " Set title string and push it to xterm/screen window title
@@ -110,11 +110,12 @@ nnoremap L :next<CR>
 
 " Miscellaneous auto commands
 "autocmd BufEnter * silent! lcd %:p:h
-autocmd Filetype mail set tw=72 noa
-autocmd FileType perl set comments=f:#
-autocmd FileType c,cpp set comments=s1:/*,mb:*,ex:*/,f://
-autocmd FileType java set comments=s1:/*,mb:*,ex:*/,f://
-autocmd FileType cvs set tw=72
+autocmd Filetype mail setlocal tw=72 noa
+autocmd FileType perl setlocal comments=f:#
+autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,f://
+autocmd FileType java setlocal comments=s1:/*,mb:*,ex:*/,f://
+autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
+autocmd FileType cvs setlocal tw=72
 
 " For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
