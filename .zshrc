@@ -23,7 +23,7 @@ function sufferanguishandloadrvm() {
 }
 
 sufferanguishandloadrvm
-rvm use 1.7.2
+#rvm use 1.7.2
 
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
 if which hub > /dev/null 2>&1 ; then
