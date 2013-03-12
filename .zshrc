@@ -23,19 +23,25 @@ function sufferanguishandloadrvm() {
 }
 
 function cap() {
+  # Pass '-e' to edit it before uploading
+  if [ "$1" = "-e" ] ; then
+    local edit=1
+    shift
+  fi
+
+  # Pass a name give it as a prefix (instead of 'screenshot')
+  local name=${1=screenshot}
   local bucket=jls
-  local output=$(date +"screenshot.%Y-%m-%dT%H:%M:%S.png")
-  # Take a screenshot
-  scrot -s $output
-  # Edit if requested
-  [ "$1" = "-e" ] && gimp $output
-  # Dump to s3
-  s3cmd put -P $output s3://${bucket}/images/
+  local output=$(date +"$name.%Y-%m-%dT%H:%M:%S.png")
+
+  scrot -s $output || return $? # Take a screenshot
+  [ $edit -eq 1 ] && gimp $output # Edit if requested
+  s3cmd put -P $output s3://${bucket}/images/ # Dump to dreamobjects
+
   url="http://${bucket}.objects.dreamhost.com/images/$output"
   echo "$url" | xclip -i 
   echo "posted to:  $url"
   echo "URL is also in the clipboard"
-
 }
 
 sufferanguishandloadrvm
