@@ -22,6 +22,22 @@ function sufferanguishandloadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
 
+function cap() {
+  local bucket=jls
+  local output=$(date +"screenshot.%Y-%m-%dT%H:%M:%S.png")
+  # Take a screenshot
+  scrot -s $output
+  # Edit if requested
+  [ "$1" = "-e" ] && gimp $output
+  # Dump to s3
+  s3cmd put -P $output s3://${bucket}/images/
+  url="http://${bucket}.objects.dreamhost.com/images/$output"
+  echo "$url" | xclip -i 
+  echo "posted to:  $url"
+  echo "URL is also in the clipboard"
+
+}
+
 sufferanguishandloadrvm
 #rvm use 1.7.2
 
