@@ -378,4 +378,4 @@ nnoremap <Leader>t :SelfTest<CR>
 "autocmd BufWritePost *.rb SelfTest
 "autocmd BufWritePost *.pp SelfTest
 
-au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.go setlocal filetype=go
