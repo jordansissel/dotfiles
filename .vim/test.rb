@@ -64,7 +64,7 @@ class DevTool < Clamp::Command
       when /^spec\// ; return ["rspec", path ]
       when /^test\// ; return ["ruby", path ]
       when /\.rb$/ ; return [ "ruby", "-c", path ]
-      when /\.go$/ ; return [ "go", "test", path ]
+      when /src\/([^\/]+)\/.*.go$/ ; return [ "go", "test", $1 ]
       when /\.sh$/ ; return [ "sh", "-n", path ]
       when /\.pp$/ ; return [ "puppet", "parser", "validate", path ]
       else ; logger.warn("Don't know how to test", :path => path)
