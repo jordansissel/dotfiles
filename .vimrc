@@ -8,7 +8,8 @@ set nohlsearch             " hlsearch is annoying
 set foldclose=             " Automatic foldclosing is irritating too
 set noshowmode             " I know what mode I'm in
 set modeline
-set scrolloff=8 set backupdir=~/.vim/tmp
+set scrolloff=8 
+set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 
 " Beeping causes an increase in the urge to kill.
