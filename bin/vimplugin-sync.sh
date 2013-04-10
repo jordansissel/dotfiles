@@ -44,6 +44,7 @@ rm -rf $HOME/.vim/bundle/AsyncCommand
 vim_plugin https://github.com/Lokaltog/vim-powerline.git
 vim_plugin https://github.com/tpope/vim-fugitive.git
 vim_plugin https://github.com/tpope/vim-unimpaired.git
+vim_plugin https://github.com/tpope/vim-dispatch.git
 
 vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
 
