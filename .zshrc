@@ -1,6 +1,5 @@
 # Aliases are so totally my friend
 alias ls="ls -F"
-alias status="cvs status | grep '^File:' | grep -v 'Up-to-date'"
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
