@@ -469,6 +469,11 @@ function scp() {
   =scp "$@"
 }
 
+# Git tab completion is horrible and slow. Disable it.
+# Found here: http://stackoverflow.com/a/9810612
+compdef -d git
+
+
 # Any special local config?
 if [ -r ~/.zshrc_local ] ; then
   . ~/.zshrc_local
