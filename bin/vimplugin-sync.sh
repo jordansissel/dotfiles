@@ -58,6 +58,8 @@ vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
 #)
 [ -d $HOME/.vim/bundle/Command-T ] && rm -rf $HOME/.vim/bundle/Command-T
 
+vim_plugin https://github.com/sjbach/lusty.git
+
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
 
