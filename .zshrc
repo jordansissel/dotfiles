@@ -4,6 +4,7 @@ which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
 alias vim="vim -p -X -u $HOME/.vimrc"
+alias dk="rvm 1.9.3 do dk"
 
 # Lots of command examples (especially heroku) lead command docs with '$' which
 # make it kind of annoying to copy/paste, especially when there's multiple
