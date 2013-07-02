@@ -32,8 +32,8 @@ vim_plugin() {
 }
 
 purge() {
-  [ -d $HOME/.vim/bundle/$1 ] && rm -rf $HOME/.vim/bundle/$1
-}{
+  [ -d "$HOME/.vim/bundle/$1" ] && rm -rf "$HOME/.vim/bundle/$1"
+}
 
 # Sync vim plugins
 vim_plugin https://github.com/scrooloose/nerdtree.git
@@ -46,7 +46,7 @@ vim_plugin https://github.com/Lokaltog/vim-powerline.git
 vim_plugin https://github.com/tpope/vim-fugitive.git
 vim_plugin https://github.com/tpope/vim-unimpaired.git
 vim_plugin https://github.com/tpope/vim-dispatch.git
-vim_plugin https://github.com/Shougo/unite.vim
+vim_plugin https://github.com/Shougo/unite.vim.git
 #vim_plugin https://github.com/mileszs/ack.vim.git
 #vim_plugin https://github.com/jordansissel/vim-ackmore.git
 
