@@ -378,7 +378,11 @@ command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 command! SelfTest Shell dk test %
 nnoremap <Leader>t :SelfTest<CR>
 
-"autocmd BufWritePost *.rb SelfTest
-"autocmd BufWritePost *.pp SelfTest
-
 au BufRead,BufNewFile *.go setlocal filetype=go
+
+if executable('ack')
+  let g:unite_source_grep_command = 'ack'
+  let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+

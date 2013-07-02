@@ -50,6 +50,9 @@ vim_plugin https://github.com/Shougo/unite.vim.git
 #vim_plugin https://github.com/mileszs/ack.vim.git
 #vim_plugin https://github.com/jordansissel/vim-ackmore.git
 
+vim_plugin https://github.com/Shougo/vimproc.vim.git
+make -C $HOME/.vim/bundle/vimproc.vim/ -f make_unix.mak
+
 vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
 
 purge "Command-T"
