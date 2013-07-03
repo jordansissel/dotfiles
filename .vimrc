@@ -54,9 +54,6 @@ set background=dark
 " Keep state about my editing, thanks.
 set viminfo='50,\"1000,:100,n~/.viminfo
 
-" for slides
-map <Leader>s :r!showoff add NEW SLIDE<CR>
-
 " Make backups, just in case?
 "set backup
 
@@ -132,17 +129,10 @@ let g:ConqueTerm_TERM = 'xterm'
 " Tagbar plugin
 nnoremap <silent> <Leader>f :TagbarToggle<CR>
 
-" Command-T plugin
-set wildignore+=*.o,*.so,*.6,*.pyc,build,vendor,tmp
-nnoremap <silent> <Leader>t :execute "CommandT " . b:gitroot<CR>
-nnoremap <silent> <Leader>b :CommandTBuffer<CR>
-" control+/ shows up in the terminal as ^_, so map C-_ to make it happen.
-nnoremap <silent> <C-_> :execute "CommandT " . b:gitroot<CR>
-
-" These mappings don't actually work, probably because conqueshell happens
-" afterwards. Hmmm
-"autocmd FileType conque_term inoremap <silent> <buffer> <C-n> <Esc>:tabnext<CR>
-"autocmd FileType conque_term inoremap <silent> <buffer> <C-p> <Esc>:tabnext<CR>
+" For Unite
+nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../<CR>"
+"  grep the word under the cursor
+nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
 
 " Programming stuff
 ab XXX: TODO(sissel):
