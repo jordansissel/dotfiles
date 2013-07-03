@@ -130,9 +130,10 @@ let g:ConqueTerm_TERM = 'xterm'
 nnoremap <silent> <Leader>f :TagbarToggle<CR>
 
 " For Unite
-nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../<CR>"
+nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
 "  grep the word under the cursor
 nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
+nnoremap <silent> <Leader>b :Unite buffer<CR>
 
 " Programming stuff
 ab XXX: TODO(sissel):
