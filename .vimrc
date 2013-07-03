@@ -319,26 +319,6 @@ function! SwitchHeaderAndCode()
   endif
 endfunction
 
-function! GPPErrorFilter()
-  silent! %s/->/ARROW/g
-  silent! %s/>>/RIGHTSHIFT/g
-  silent! %s/<</LEFTSHIFT/g
-  while search("<", "wc")
-    let l:line = getline(".")
-    let l:col = col(".")
-    let l:char = l:line[l:col - 1]
-    if l:char == "<"
-      normal d%
-    else
-      break
-    endif
-  endwhile
-  silent! %s/ARROW/->/g
-  silent! %s/RIGHTSHIFT/>>/g
-  silent! %s/LEFTSHIFT/<</g
-  silent %!awk '/: In/ { print "---------------"; print }; \!/: In/ {print }'
-endfunction
-
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
   let winnr = bufwinnr('^' . command . '$')
