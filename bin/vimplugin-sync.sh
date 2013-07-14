@@ -47,6 +47,8 @@ vim_plugin https://github.com/tpope/vim-fugitive.git
 vim_plugin https://github.com/tpope/vim-unimpaired.git
 vim_plugin https://github.com/tpope/vim-dispatch.git
 vim_plugin https://github.com/Shougo/unite.vim.git
+vim_plugin https://github.com/zhaocai/unite-tmux.git
+vim_plugin https://github.com/myusuf3/numbers.vim.git 
 #vim_plugin https://github.com/mileszs/ack.vim.git
 #vim_plugin https://github.com/jordansissel/vim-ackmore.git
 
