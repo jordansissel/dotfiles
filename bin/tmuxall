@@ -1,0 +1,2 @@
+#!/bin/sh
+xdotool search --class --onlyvisible terminator type --window %@ --args 1 'tmux -2' key --window %@ Return
