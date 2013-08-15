@@ -28,6 +28,9 @@ let go_highlight_trailing_whitespace_error=0
 " Sometimes the terminal isn't setup sanely, fix backspace.
 imap <C-?> <C-h>
 
+" Sometimes I don't have a keyboard with escape.
+imap jj <Esc>
+
 " Syntax and Color
 if has("syntax")
   syn on
