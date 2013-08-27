@@ -112,6 +112,7 @@ nnoremap [] k$][%?}<CR>
 nnoremap H :prev<CR>
 nnoremap L :next<CR>
 
+
 " Miscellaneous auto commands
 "autocmd BufEnter * silent! lcd %:p:h
 autocmd Filetype mail setlocal tw=72 noa
@@ -120,6 +121,9 @@ autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java setlocal comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
 autocmd FileType cvs setlocal tw=72
+
+autocmd FileType git nnoremap J :cnext<CR>
+autocmd FileType git nnoremap K :cprev<CR>
 
 " For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
