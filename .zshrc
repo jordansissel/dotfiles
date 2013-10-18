@@ -44,9 +44,6 @@ function cap() {
   echo "URL is also in the clipboard"
 }
 
-sufferanguishandloadrvm
-#rvm use 1.7.2
-
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
 if which hub > /dev/null 2>&1 ; then
   function git() {
@@ -472,6 +469,9 @@ function scp() {
 # Found here: http://stackoverflow.com/a/9810612
 compdef -d git
 
+sufferanguishandloadrvm
+# Make rvm STFU about path warnings.
+rvm use >& /dev/null
 
 # Any special local config?
 if [ -r ~/.zshrc_local ] ; then
