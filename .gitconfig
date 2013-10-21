@@ -5,4 +5,5 @@
   st = status -s
 [push]
   default = current
-
+[remote "origin"]
+  fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
