@@ -68,7 +68,7 @@ set showmatch              " Show me matching close braces
 set ignorecase             " Case insensitive searching
 set smartcase              " Unless I really mean case sensitive
 set list                   " Show me whitespace where I care
-"set number                " Sometimes I like line numbers? Meh. Rarely.
+set number                 " Sometimes I like line numbers
 
 " Some useful miscellaneous options
 set listchars=tab:>-        " In case I want to use the 'list' option
