@@ -116,7 +116,7 @@ export CVS_RSH=ssh
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export PAGER=less
-export LESS="-nX"
+export LESS="-nXR"
 
 ## zsh options settings
 setopt no_beep                   # Beeping is annoying. Die.
