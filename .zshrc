@@ -465,6 +465,13 @@ function scp() {
   =scp "$@"
 }
 
+function sgrep() {
+  re="$1"
+  shift
+  [ "$#" -eq 0 ] && set -- -
+  sed -rne '/^$/!H; /^$/ { x; /'"$re"'/p; }; ${ x; /'"$re"'/p; d; } ' "$@"
+}
+
 # Git tab completion is horrible and slow. Disable it.
 # Found here: http://stackoverflow.com/a/9810612
 compdef -d git
