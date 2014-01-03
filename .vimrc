@@ -108,6 +108,7 @@ nnoremap ][ /}<CR>b99]}
 nnoremap ]] j0[[%/{<CR>
 nnoremap [] k$][%?}<CR>
 
+
 " Buffer movement
 nnoremap H :prev<CR>
 nnoremap L :next<CR>
@@ -127,6 +128,8 @@ autocmd FileType git nnoremap K :cprev<CR>
 
 " For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
+
+nnoremap <Leader>n :NumbersToggle<CR>:set number!
 
 " Don't go into insert mode when the buffer is focused
 let g:ConqueTerm_InsertOnEnter = 0
