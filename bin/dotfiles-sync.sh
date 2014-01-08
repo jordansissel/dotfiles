@@ -1,19 +1,43 @@
-#!/bin/sh
+#!/bin/bash
 
-umask 022
+if [ -d $HOME/jordansissel/ ]; then
+        REPOHOME=$HOME/jordansissel
+else
+        echo "Couldn't find repo."
+        exit
+fi
 
-# Fetch dotfiles
-dotfiles() {
-  echo "Fetching latest dotfiles"
-  # Pull a tarball instead of doing git clone because I don't want $HOME/.git
-  curl -Lso - https://github.com/jordansissel/dotfiles/tarball/master \
-    | tar --exclude README.md --strip-components 1 -C $HOME -zvxf -
-}
+if [ ! -e "${REPOHOME}/ssh/config" ] ; then
+    echo problem with repo home
+    echo
+    exit
+fi
 
-# Sync dotfiles
-dotfiles
-rm ~/bin/vim
+e=1
+if [ -d $HOME/.ssh ]; then
+    SSHFROM="$HOME/.ssh-`date +%F`-${e}"
+    while [ -d "${SSHFROM}" ]; do
+        e=$((${e}+1))
+        SSHFROM="$HOME/.ssh-`date +%F`-${e}"
+    done
+    mv -v $HOME/.ssh "${SSHFROM}" || true
+fi
+mkdir -p $HOME/.ssh 2> /dev/null
 
-vimplugin-sync.sh
-chmod 600 ~/.ssh/*
-chmod 700 ~/.ssh
+### SSH setup
+for e in ${REPOHOME}/ssh/* ; do
+        ln -vfs "${e}" ~/.ssh/
+done
+unset e
+
+chmod 700 $HOME/.ssh/
+chmod 600 -R ${REPOHOME}/ssh/*
+
+for e in bash_profile zprofile zshenv vim vimrc aprc ackrc gernc gitconfig gtkrc-2.0 hushlogin screenrc config notion; do
+     ln -svf "${REPOHOME}/${e}" "$HOME/.${e}"
+done
+for e in bin; do
+     ln -svf "${REPOHOME}/${e}" "$HOME/.${e}"
+done
+
+ln -s ../../githooks/post-checkout $REPOHOME/.git/hooks
