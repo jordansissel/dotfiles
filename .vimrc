@@ -144,6 +144,9 @@ nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
 "  grep the word under the cursor
 nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
 nnoremap <silent> <Leader>b :Unite buffer<CR>
+nnoremap <silent> <Leader>w :echom system("git line-tags " . expand("%") . " " . line(".") . ' \| tr "\n" " "')<CR>
+
+
 
 " Programming stuff
 ab XXX: TODO(sissel):
