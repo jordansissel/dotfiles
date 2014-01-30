@@ -56,7 +56,7 @@ fi
 # backgrounding vim, then 'fg' always hangs zsh, so I use a subshell to select
 # ruby
 function vim() {
-  rvm default do =vim -p -X -u $HOME/.vimrc "$@")
+  rvm default do =vim -p -X -u $HOME/.vimrc "$@"
 }
 
 function loadvirtualenv() {
