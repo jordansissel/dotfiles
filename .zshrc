@@ -47,7 +47,7 @@ function cap() {
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
 if which hub > /dev/null 2>&1 ; then
   function git() {
-    ( rvm use default; =hub "$@" )
+    rvm default do =hub "$@"
   }
 fi
 
@@ -56,7 +56,7 @@ fi
 # backgrounding vim, then 'fg' always hangs zsh, so I use a subshell to select
 # ruby
 function vim() {
-  (rvm use default; =vim -p -X -u $HOME/.vimrc "$@")
+  rvm default do =vim -p -X -u $HOME/.vimrc "$@")
 }
 
 function loadvirtualenv() {
