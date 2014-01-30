@@ -1,0 +1,27 @@
+#!/bin/sh
+
+usage() {
+  echo "Usage: $0 <file> <line>"
+  echo "  Outputs all tags a given line of code is in"
+}
+
+if [ $# -ne 2 ] ; then
+  usage
+  exit 1
+fi
+
+file="$1"
+line="$2"
+
+commit="$(git blame -L "$line,$line" "$file" | fex 1)"
+
+if [ "$commit" = "00000000" ] ; then
+  echo "NOT COMMITTED"
+else
+  git tag --contains "$commit"
+  #for tag in `git tag --contains "$commit"` ; do
+    #git log --tags --simplify-by-decoration --pretty="format:%at %d" $tag \
+      #| sed -ne "/tag: $tag/{p;q}"
+  #done \
+  #| sort -n | head -1
+fi
