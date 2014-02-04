@@ -120,11 +120,14 @@ autocmd Filetype mail setlocal tw=72 noa
 autocmd FileType perl setlocal comments=f:#
 autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java setlocal comments=s1:/*,mb:*,ex:*/,f://
-autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
 autocmd FileType cvs setlocal tw=72
 
 autocmd FileType git nnoremap J :cnext<CR>
 autocmd FileType git nnoremap K :cprev<CR>
+
+autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
+"autocmd FileType go autocmd BufWritePre <buffer> :Fmt
+"autocmd FileType go compiler go
 
 " For the conque shell plugin
 nnoremap <Leader>c :ConqueTermTab zsh<CR>
