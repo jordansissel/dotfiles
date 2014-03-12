@@ -1,4 +1,5 @@
 --type-set=puppet=.pp
+--type-set=markdown=.md
 --type-set=erb=.erb
 --ignore-dir=coverage
 --ignore-dir=.yardoc
