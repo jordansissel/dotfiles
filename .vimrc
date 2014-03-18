@@ -10,13 +10,15 @@ set noshowmode             " I know what mode I'm in
 set modeline
 set scrolloff=8 
 set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
 
-" Beeping causes an increase in the urge to kill.
+" Set backup directory. End with two // to tell vim to use the full path name
+" of the file for the swapname. Without it, we could be editing 'foo.rb' in
+" two directories, simultaneously, and they would compete for swap file.
+set directory=~/.vim/tmp//
+
+" Terminal beeps! ARGH. (╯°□°）╯︵ ┻━┻
 set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
-
-" For whatever reason, we ahve to set these in an autocmd
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
 set hidden
@@ -43,7 +45,7 @@ set shiftwidth=2                " 2 spaces for shifting
 set tabstop=2                   " Tabs are 2 spaces wide.
 set expandtab                   " When I hit tab, use spaces.
 set autoindent
-set nosmartindent
+set nosmartindent               " smart indent isn't very smart.
 set cindent                     " Use c-style indentation
 set cinkeys=!^F                 " Only indent when requested
 set cinoptions=(0t0c1           " :help cinoptions-values
@@ -115,29 +117,21 @@ nnoremap L :next<CR>
 
 
 " Miscellaneous auto commands
-"autocmd BufEnter * silent! lcd %:p:h
 autocmd Filetype mail setlocal tw=72 noa
 autocmd FileType perl setlocal comments=f:#
 autocmd FileType c,cpp setlocal comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType java setlocal comments=s1:/*,mb:*,ex:*/,f://
 autocmd FileType cvs setlocal tw=72
 
+" For navigating fugitive's :Glog views.
 autocmd FileType git nnoremap J :cnext<CR>
 autocmd FileType git nnoremap K :cprev<CR>
 
+" Fix go commenting
 autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
-"autocmd FileType go autocmd BufWritePre <buffer> :Fmt
-"autocmd FileType go compiler go
 
-" For the conque shell plugin
-nnoremap <Leader>c :ConqueTermTab zsh<CR>
-
-nnoremap <Leader>n :NumbersToggle<CR>:set number!
-
-" Don't go into insert mode when the buffer is focused
-let g:ConqueTerm_InsertOnEnter = 0
-let g:ConqueTerm_ReadUnfocused = 1
-let g:ConqueTerm_TERM = 'xterm'
+" Toggle relative/actual line numbers.
+nnoremap <Leader>n :NumbersToggle<CR>:set number!<CR>
 
 " Tagbar plugin
 nnoremap <silent> <Leader>f :TagbarToggle<CR>
@@ -148,8 +142,6 @@ nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
 nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
 nnoremap <silent> <Leader>b :Unite buffer<CR>
 nnoremap <silent> <Leader>w :echom system("git line-tags " . expand("%") . " " . line(".") . ' \| tr "\n" " "')<CR>
-
-
 
 " Programming stuff
 ab XXX: TODO(sissel):
@@ -235,107 +227,6 @@ if filereadable(glob("~/.vimrc-private"))
   source ~/.vimrc-private
 endif
 
-" Let me read files in perforce.
-autocmd BufReadCmd //depot/* exe "0r !p4 print -q <afile>"
-autocmd BufReadCmd //depot/* 1
-autocmd BufReadCmd //depot/* set readonly
-
-" Indent helpers
-"inoremap <C-f> <ESC>:call ReIndent(1)<CR>
-function! ReIndent(in_insert_mode)
-  let l:col = col(".")
-  let l:lnum = line(".")
-
-  " set append = 1, if we're at the end of the line.
-  let l:linelen = strlen(getline(l:lnum))
-  let l:append = (l:col >= l:linelen)
-
-  let l:indent_ok = 0
-  if IndentToParen(l:lnum, 1)
-    let l:indent_ok = 1
-  elseif IndentToParen(l:lnum, 0)
-    let l:indent_ok = 1
-  endif
-
-  " Move back to our original position
-  let l:linedelta = strlen(getline(l:lnum)) - l:linelen
-  call setpos('.', [0, l:lnum, l:col + l:linedelta, 0])
-
-  if l:indent_ok == 0
-    "Both indent attempts failed, try using == instead
-    normal ==
-  endif
-
-  if a:in_insert_mode
-    if l:append == 1
-      startinsert!
-    else
-      normal l
-      startinsert
-    endif
-  endif
-endfunction
-
-function! IndentToParen(lnum, assume_unclosed)
-  " Search for '(' on the previous line
-  let l:ret = 1
-  let l:lnum = a:lnum
-  let l:prevlnum = prevnonblank(l:lnum - 1)
-  let l:oldline = getline(l:lnum)
-
-  if a:assume_unclosed
-    " insert a ), find what it matches, indent to that open paren?
-    call setline(l:lnum, ")")
-  else
-    call setpos('.', [0, l:prevlnum, 0, 0])
-    execute "normal $F)"
-  endif
-
-  let [l:slnum, l:scol] = searchpairpos('(', '', ')', 'nbW')
-
-  if a:assume_unclosed
-    call setline(l:lnum, l:oldline)
-  endif
-
-  if l:slnum[0] != 0
-    " Trim leading space/tabs
-    call setpos('.', [0, l:lnum, 0, 0])
-    s/^[ 	]*//
-    
-    " Set the line with new indentation
-    if a:assume_unclosed == 0
-      let l:scol = indent(l:slnum)
-    endif
-    call setline(l:lnum, repeat(" ", l:scol) . getline(l:lnum))
-
-    " Turn spaces into tabs on this line, if necessary.
-    .retab!
-  else
-    "echo "No match found on IndentToParen " . a:assume_unclosed
-    let l:ret = 0
-  endif
-  return l:ret
-endfunction
-
-let g:lastfile = ""
-nmap <space>s :call SwitchHeaderAndCode()<CR>
-
-function! SwitchHeaderAndCode()
-  let l:basefile = expand("%:t:r")
-  let l:ext = expand("%:e")
-  let l:oldfile = expand("%")
-
-  if g:lastfile
-    exec "find " . g:lastfile 
-  elseif l:ext == "cpp" 
-    let g:lastfile = expand("%")
-    exec "find " . l:basefile . ".h"
-  elseif l:ext == "h"
-    let g:lastfile = expand("%")
-    exec "find " . l:basefile . ".cpp"
-  endif
-endfunction
-
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
   let winnr = bufwinnr('^' . command . '$')
@@ -367,6 +258,8 @@ nnoremap <Leader>t :SelfTest<CR>
 
 au BufRead,BufNewFile *.go setlocal filetype=go
 
+" Use ack for Unite's grep feature when possible.
+" Because ack is awesome.
 if executable('ack')
   let g:unite_source_grep_command = 'ack'
   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
