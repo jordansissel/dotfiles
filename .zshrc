@@ -1,8 +1,9 @@
 # Aliases are so totally my friend
 alias ls="ls -F"
+# Muscle memory, vi = vim
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
-
+# Run vim with tabs enabled, no X11, and only load *my* vimrc.
 alias vim="vim -p -X -u $HOME/.vimrc"
 alias dk="rvm 1.9.3 do dk"
 
@@ -22,28 +23,6 @@ function sufferanguishandloadrvm() {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
 }
 
-function cap() {
-  # Pass '-e' to edit it before uploading
-  if [ "$1" = "-e" ] ; then
-    local edit=1
-    shift
-  fi
-
-  # Pass a name give it as a prefix (instead of 'screenshot')
-  local name=${1=screenshot}
-  local bucket=jls
-  local output=$(date +"$name.%Y-%m-%dT%H:%M:%S.png")
-
-  scrot -s $output || return $? # Take a screenshot
-  [ $edit -eq 1 ] && gimp $output # Edit if requested
-  s3cmd put -P $output s3://${bucket}/images/ # Dump to dreamobjects
-
-  url="http://${bucket}.objects.dreamhost.com/images/$output"
-  echo "$url" | xclip -i 
-  echo "posted to:  $url"
-  echo "URL is also in the clipboard"
-}
-
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
 if which hub > /dev/null 2>&1 ; then
   function git() {
@@ -51,10 +30,11 @@ if which hub > /dev/null 2>&1 ; then
   }
 fi
 
-# run vim without rvm's influence.
-# Note: can't use "rvm default do vim ..." because for whatever reason
-# backgrounding vim, then 'fg' always hangs zsh, so I use a subshell to select
-# ruby
+# run vim outside the current rvm ruby. This avoids long startup
+# if our selected ruby is JRuby.
+# Note: On some systems, if you background vim (^Z) while running it in
+# this way, 'fg' will always hang. I don't know why. It seems to be
+# a bug on zsh and OS X.
 function vim() {
   rvm default do =vim -p -X -u $HOME/.vimrc "$@"
 }
@@ -71,14 +51,6 @@ export LANG=en_US.UTF-8
 # me great pain. To fix that, let's always purge .bundle before running
 # bundler.
 alias bundle='rm -rf .bundle; bundle'
-
-# Revision Control
-
-# subversion doesn't have SVNROOT like cvs does... so
-# this makes me have to type less when checking stuff out:
-# svn checkout $SVNHOME/foo
-alias svn.syn="SVNHOME=svn+ssh://jls@syn.csh.rit.edu/home/jls/SVNREPO"
-SVNHOME="https://semicomplete.googlecode.com/svn/"
 
 # Defaults
 PSARGS=-ax
@@ -104,15 +76,7 @@ export LS_COLORS=
 stty stop ""
 stty start ""
 
-# Check if we're using screen, set our term to xterm...# UGLY BAD HACK
-# I only need this on Solaris machines with screen(1) but no screen
-# terminfo entry. I don't use it much anymore.
-# Really, it should check if 'screen' is set and there is no screen terminfo
-# then set TERM=xtemr.
-#[ $TERM = "screen" ] && TERM=xterm
-
 # Some environment defaults
-export CVS_RSH=ssh
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export PAGER=less
@@ -138,7 +102,7 @@ setopt hist_ignore_all_dups      # Ignore old command duplicates (in current ses
 
 # changing directories
 setopt auto_pushd                # Automatically pushd when I cd
-setopt nocdable_vars               # Let me do cd ~foo if $foo is a directory
+setopt nocdable_vars
 
 # ksh addictions
 setopt no_nomatch                # Don't error when there's nothing to glob, leave it unchanged
@@ -159,7 +123,6 @@ bindkey -M vicmd j vi-down-line-or-history
 compctl -g '*(-/D)' cd
 compctl -g '*.ps' ghostview gv
 compctl -g '*.pdf' acroread xpdf
-compctl -g '/var/db/pkg/*(/:t)' pkg_delete pkg_info
 compctl -j -P '%' kill bg fg
 compctl -v export unset vared
 
@@ -340,20 +303,6 @@ function title() {
   setopt LOCAL_OPTIONS
 }
 
-function config_laptop() {
-  export P4CLIENT=jls_nightfall
-}
-
-function config_csh() {
-  alias which="/u9/psionic/bin/which"
-}
-
-# Host-based changes
-case $HOST in
-  fury|tempest) config_csh ;;
-  thinktop|nightfall) config_laptop ;;
-esac
-
 function config_SunOS() {
   SUN_PATHS="/usr/ucb:/usr/ccs/bin:/opt/SUNWspro/bin"
   SUN_MANPATHS="/opt/SUNWspro/man:/usr/openwin/man"
@@ -383,6 +332,7 @@ function psg() {
   ps $PSARGS | egrep "$@" | fgrep -v egrep
 }
 
+# Find an environment variable in all processes and show the unique values
 function findenv() {
   ps aexww | sed -ne "/$1/ { s/.*\($1[^ ]*\).*/\1/; p; }" | sort | uniq -c $2
 }
@@ -437,17 +387,8 @@ function byteconv() {
   echo "${a}$(echo "$ORDER" | cut -b1)"
 }
 
-function datelog() {
-  [ $# -eq 0 ] && set -- "%F %H:%M:%S]"
-  perl -MPOSIX -e 'while (sysread(STDIN,$_,1,length($_)) > 0) { while (s/^(.*?\n)//) { printf("%s %s", strftime($ARGV[0], localtime), $1); } }' "$@"
-}
-
-function pastebin() {
-  curl --data-urlencode "paste_code@${1:--}" http://pastebin.com/api_public.php
-  echo ""  # API doesn't return a newline
-}
-
-# From petef's zshrc
+# From petef's zshrc.
+# Make scp error if I forget to specify a remote host target.
 function scp() {
   found=false
   for arg; do
@@ -465,6 +406,7 @@ function scp() {
   =scp "$@"
 }
 
+# section grep. Greps for text in sections of text delimited by blank lines.
 function sgrep() {
   re="$1"
   shift
@@ -479,6 +421,29 @@ compdef -d git
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
 rvm use >& /dev/null
+
+function cap() {
+  # Pass '-e' to edit it before uploading
+  if [ "$1" = "-e" ] ; then
+    local edit=1
+    shift
+  fi
+
+  # Pass a name give it as a prefix (instead of 'screenshot')
+  local name=${1=screenshot}
+  local bucket=jls
+  local output=$(date +"$name.%Y-%m-%dT%H:%M:%S.png")
+
+  scrot -s $output || return $? # Take a screenshot
+  [ $edit -eq 1 ] && gimp $output # Edit if requested
+  s3cmd put -P $output s3://${bucket}/images/ # Dump to dreamobjects
+
+  url="http://${bucket}.objects.dreamhost.com/images/$output"
+  echo "$url" | xclip -i 
+  echo "posted to:  $url"
+  echo "URL is also in the clipboard"
+}
+
 
 # Any special local config?
 if [ -r ~/.zshrc_local ] ; then
