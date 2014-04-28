@@ -54,6 +54,7 @@ vim_plugin https://github.com/airblade/vim-gitgutter.git
 #vim_plugin https://github.com/jordansissel/vim-ackmore.git
 vim_plugin https://github.com/Shougo/vimproc.vim.git
 vim_plugin https://github.com/jnwhiteh/vim-golang.git
+vim_plugin https://github.com/alfredodeza/posero.vim.git
 
 make -C $HOME/.vim/bundle/vimproc.vim/ -f make_unix.mak
 
