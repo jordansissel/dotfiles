@@ -67,7 +67,12 @@ HISTFILE=~/.history_zsh
 # http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
 # This was previously /proc/self/cwd, but 'go build' changes directory, so now
 # it needs to be the working directory of the shell, not of 'go build'
-export GOPATH=/proc/$$/cwd
+#export GOPATH=/proc/$$/cwd
+function golang_is_very_disappointing_or_i_am_missing_something_obvious() {
+  # OSX has no /proc so my previous use of /proc/$$/cwd doesn't work.
+  export GOPATH=$(PWD)
+}
+
 
 # I hate ls colors...
 export LS_COLORS=
@@ -241,6 +246,8 @@ function precmd() {
     esac
   fi
   lastcmd=""
+
+  golang_is_very_disappointing_or_i_am_missing_something_obvious
 }
 
 function preexec() {
