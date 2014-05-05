@@ -70,7 +70,7 @@ HISTFILE=~/.history_zsh
 #export GOPATH=/proc/$$/cwd
 function golang_is_very_disappointing_or_i_am_missing_something_obvious() {
   # OSX has no /proc so my previous use of /proc/$$/cwd doesn't work.
-  export GOPATH=$(PWD)
+  export GOPATH="$(PWD)"
 }
 
 
