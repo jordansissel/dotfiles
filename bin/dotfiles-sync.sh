@@ -11,9 +11,27 @@ dotfiles() {
 }
 
 # Sync dotfiles
+git_it() {
+  repo="$1"
+  target="$2"
+  name="$(basename ${repo%%.git})"
+  if [ -d "$target/.git" ] ; then
+    echo "Updating $name"
+    (
+      cd "$target"
+      git fetch
+      git reset --hard "origin/$(git branch | grep '^\* ' | cut -b 3-)"
+    )
+  else
+    echo "Cloning $name"
+    (cd "$(dirname $target)"; git clone "$repo" "$target")
+  fi
+}
+
+git_it https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 dotfiles
+chmod 600 ~/.ssh/*
+chmod 700 ~/.ssh
 rm ~/bin/vim
 
 vimplugin-sync.sh
-chmod 600 ~/.ssh/*
-chmod 700 ~/.ssh
