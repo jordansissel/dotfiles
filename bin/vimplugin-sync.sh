@@ -38,7 +38,7 @@ purge() {
 # Sync vim plugins
 vim_plugin https://github.com/scrooloose/nerdtree.git
 vim_plugin https://github.com/majutsushi/tagbar.git
-vim_plugin https://github.com/vim-scripts/DrawIt.git
+#vim_plugin https://github.com/vim-scripts/DrawIt.git
 vim_plugin https://github.com/jpalardy/vim-slime.git
 vim_plugin https://github.com/altercation/vim-colors-solarized.git
 #vim_plugin https://github.com/pydave/AsyncCommand.git
@@ -68,6 +68,7 @@ purge "conque_2.3"
 purge "conque"
 purge "ack.vim"
 purge "vim-ackmore"
+purge "DrawIt"
 
 # I have a fork of ruby-matchit to make it a proper ftplugin
 vim_plugin https://github.com/jordansissel/ruby-matchit.git
