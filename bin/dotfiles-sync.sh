@@ -28,8 +28,9 @@ git_it() {
   fi
 }
 
-git_it https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+#git_it https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 dotfiles
+rm -rf ~/.oh-my-zsh/
 chmod 600 ~/.ssh/*
 chmod 700 ~/.ssh
 rm ~/bin/vim

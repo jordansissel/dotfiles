@@ -86,11 +86,11 @@ let g:closetag_html_style=1
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
 set titlelen=70
-if &term == "screen"
+if &term == "screen-256color"
   set t_ts=k
   set t_fs=\
 endif
-if &term == "screen" || &term == "xterm"
+if &term == "screen-256color" || &term == "screen" || &term == "xterm"
   set title
 endif
 
@@ -148,11 +148,7 @@ ab XXX: TODO(sissel):
 
 " Tab and Window navigation
 noremap <C-n> :tabnext<CR>
-noremap <C-k>n :tabnext<CR>    " muscle memory
-noremap <C-k><C-n> :tabnext<CR>    " muscle memory
 noremap <C-p> :tabprev<CR>
-noremap <C-k>p :tabprev<CR>    " muscle memory
-noremap <C-k><C-p> :tabprev<CR>    " muscle memory
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
@@ -264,5 +260,10 @@ if executable('ack')
   let g:unite_source_grep_command = 'ack'
   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
   let g:unite_source_grep_recursive_opt = ''
+endif
+
+if exists("$TMUX")
+  let g:slime_target = "tmux"
+  let g:slime_default_config = {"socket_name": "default", "target_pane": ":.1"}
 endif
 
