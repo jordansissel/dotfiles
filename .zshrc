@@ -20,7 +20,7 @@ function \$() {
 function sufferanguishandloadrvm() {
   if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
     . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
-    rvm use > /dev/null 2>&1
+    rvm use default > /dev/null 2>&1
   fi
 }
 
@@ -199,22 +199,21 @@ function refresh_git() {
   git_branch="$(git_branch)"
   git_status="$(parse_git_dirty)"
 
-  if [ -d ".git" ] ; then
+  if =git rev-parse >& /dev/null ; then
     if [ "$git_status" = "dirty" ] ; then
       git_prompt=" |${fg[red]}${git_branch}+${reset_color}"
     else
       git_prompt=" |${fg[green]}${git_branch}${reset_color}"
     fi
   else
-    echo "Clearing git_prompt"
     git_prompt=""
   fi
 }
 
 function git_branch() {
   # Derived from https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh
-  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+  ref=$(=git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(=git rev-parse --short HEAD 2> /dev/null) || return
   echo "${ref##*/}"
 }
 
@@ -223,14 +222,14 @@ function parse_git_dirty() {
   local SUBMODULE_SYNTAX=''
   local GIT_STATUS=''
   local CLEAN_MESSAGE='nothing to commit (working directory clean)'
-  if [[ "$(command git config --get oh-my-zsh.hide-status)" != "1" ]]; then
+  if [[ "$(=git config --get oh-my-zsh.hide-status)" != "1" ]]; then
     if [[ $POST_1_7_2_GIT -gt 0 ]]; then
       SUBMODULE_SYNTAX="--ignore-submodules=dirty"
     fi
     if [[ "$DISABLE_UNTRACKED_FILES_DIRTY" == "true" ]]; then
-      GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} -uno 2> /dev/null | tail -n1)
+      GIT_STATUS=$(=git status -s ${SUBMODULE_SYNTAX} -uno 2> /dev/null | tail -n1)
     else
-      GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} 2> /dev/null | tail -n1)
+      GIT_STATUS=$(=git status -s ${SUBMODULE_SYNTAX} 2> /dev/null | tail -n1)
     fi
     if [[ -n $GIT_STATUS ]]; then
       echo dirty
@@ -264,11 +263,8 @@ function precmd() {
 
   golang_is_very_disappointing_or_i_am_missing_something_obvious
 
-  case "$lastcmd" in
-    git*|cd*) refresh_git ;;
-  esac
-
   lastcmd=""
+  refresh_git
 }
 
 function preexec() {
