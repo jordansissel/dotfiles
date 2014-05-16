@@ -192,7 +192,7 @@ colors
 
 # The Prompt
 setopt promptsubst
-PS1=$'%m(%35<...<%~${git_prompt}) %(?..!%?! )%# '
+PS1=$'${fg[cyan]}⓿${reset_color} ${fg[yellow]}%m${fg[magenta]}(%55<...<%~)${reset_color}${git_prompt} %(?..!%?! )\n%# '
 unset RPROMPT RPS1
 
 function refresh_git() {
@@ -201,9 +201,9 @@ function refresh_git() {
 
   if =git rev-parse >& /dev/null ; then
     if [ "$git_status" = "dirty" ] ; then
-      git_prompt=" |${fg[red]}${git_branch}+${reset_color}"
+      git_prompt=" ${fg[red]}${git_branch}${reset_color}"
     else
-      git_prompt=" |${fg[green]}${git_branch}${reset_color}"
+      git_prompt=" ${fg[green]}${git_branch}${reset_color}"
     fi
   else
     git_prompt=""
