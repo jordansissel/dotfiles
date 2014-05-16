@@ -7,3 +7,6 @@
   default = current
 #[remote "origin"]
  #fetch = +refs/pull/*/head:refs/remotes/origin/pull/*
+ #
+[alias]
+   pr = "!f() { git fetch origin pull/$1/head:pr/$1; }; f"
