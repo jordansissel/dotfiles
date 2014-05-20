@@ -175,6 +175,10 @@ PATH="$HOME/bin:$HOME/local/bin:$PATH"
 export GOROOT=$HOME/go
 addpaths $GOROOT/bin
 
+for i in $HOME/node_modules/*/bin ; do
+  addpaths $i
+done
+
 # completion madness
 compctl -g '*.ps' ghostview gv
 compctl -g '*.pdf' acroread xpdf
