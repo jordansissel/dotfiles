@@ -261,7 +261,7 @@ function precmd() {
       vi*) ;; # vi, don't notify
       "") ;; # no previous command, don't notify
       *) 
-        [ ! -Z "$TMUX" ] && tmux display-message "($duration secs): $lastcmd"
+        [ ! -z "$TMUX" ] && tmux display-message "($duration secs): $lastcmd"
     esac
   fi
 
