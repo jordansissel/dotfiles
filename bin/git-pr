@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require "clamp"
+
+class GitPR < Clamp::Command
+  parameter "PULL_REQUEST", "The pull request number to fetch"
+
+  option ["-r", "--remote"], "REMOTE", "Fetch from a specific remote only."
+
+  def execute 
+    if remote
+      remote_list = [remote]
+    else
+      remote_list = %x{git remote}.split("\n")
+    end
+
+    branch = "pull/#{pull_request}"
+    fetched = remote_list.find do |remote|
+      system("git", "fetch", remote, "pull/#{pull_request}/head:#{branch}")
+    end
+    system("git", "checkout", branch)
+  end
+end
+
+GitPR.run
