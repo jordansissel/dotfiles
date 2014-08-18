@@ -218,7 +218,7 @@ function git_branch() {
   # Derived from https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh
   ref=$(=git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(=git rev-parse --short HEAD 2> /dev/null) || return
-  echo "${ref##*/}"
+  echo "${ref##refs/heads/}"
 }
 
 # Derived from https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh
