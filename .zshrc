@@ -203,6 +203,9 @@ function refresh_git() {
   git_branch="$(git_branch)"
   git_status="$(parse_git_dirty)"
 
+  # For use in shell
+  b="$git_branch"
+
   if =git rev-parse >& /dev/null ; then
     if [ "$git_status" = "dirty" ] ; then
       git_prompt=" ${fg[red]}${git_branch}${reset_color}"
