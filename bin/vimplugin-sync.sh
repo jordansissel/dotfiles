@@ -37,30 +37,37 @@ purge() {
 
 # Sync vim plugins
 vim_plugin https://github.com/scrooloose/nerdtree.git
-vim_plugin https://github.com/majutsushi/tagbar.git
-#vim_plugin https://github.com/vim-scripts/DrawIt.git
-vim_plugin https://github.com/jpalardy/vim-slime.git
-vim_plugin https://github.com/altercation/vim-colors-solarized.git
-#vim_plugin https://github.com/pydave/AsyncCommand.git
+vim_plugin https://github.com/alfredodeza/posero.vim.git
+vim_plugin https://github.com/christoomey/vim-tmux-navigator.git
 vim_plugin https://github.com/Lokaltog/vim-powerline.git
 vim_plugin https://github.com/tpope/vim-fugitive.git
-vim_plugin https://github.com/tpope/vim-unimpaired.git
-vim_plugin https://github.com/tpope/vim-dispatch.git
 vim_plugin https://github.com/Shougo/unite.vim.git
 vim_plugin https://github.com/zhaocai/unite-tmux.git
 vim_plugin https://github.com/myusuf3/numbers.vim.git 
 vim_plugin https://github.com/airblade/vim-gitgutter.git
-#vim_plugin https://github.com/mileszs/ack.vim.git
-#vim_plugin https://github.com/jordansissel/vim-ackmore.git
-vim_plugin https://github.com/Shougo/vimproc.vim.git
-vim_plugin https://github.com/jnwhiteh/vim-golang.git
-vim_plugin https://github.com/alfredodeza/posero.vim.git
-vim_plugin https://github.com/christoomey/vim-tmux-navigator.git
 
-make -C $HOME/.vim/bundle/vimproc.vim/ -f make_unix.mak
+purge "vimproc"
+purge "tagbar"
+purge "vim-slime"
+purge "vim-colors-solarized"
+purge "vim-dispatch"
+purge "vim-multiple-cursors"
+#vim_plugin https://github.com/terryma/vim-multiple-cursors.git
+#vim_plugin https://github.com/Shougo/vimproc.vim.git
+#vim_plugin https://github.com/mattn/emmet-vim.git
+#vim_plugin https://github.com/majutsushi/tagbar.git
+#vim_plugin https://github.com/jpalardy/vim-slime.git
+#vim_plugin https://github.com/altercation/vim-colors-solarized.git
+#vim_plugin https://github.com/jnwhiteh/vim-golang.git
+#vim_plugin https://github.com/vim-scripts/DrawIt.git
+#vim_plugin https://github.com/pydave/AsyncCommand.git
+#vim_plugin https://github.com/tpope/vim-unimpaired.git
+#vim_plugin https://github.com/tpope/vim-dispatch.git
 
-vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
+#make -C $HOME/.vim/bundle/vimproc.vim/ -f make_unix.mak
 
+#vim_plugin "http://vim.sourceforge.net/scripts/download_script.php?src_id=4318"
+purge "close_tag"
 purge "Command-T"
 purge "lusty"
 purge "AsyncCommand"

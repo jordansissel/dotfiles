@@ -134,7 +134,7 @@ autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:
 nnoremap <Leader>n :NumbersToggle<CR>:set number!<CR>
 
 " Tagbar plugin
-nnoremap <silent> <Leader>f :TagbarToggle<CR>
+"nnoremap <silent> <Leader>f :TagbarToggle<CR>
 
 " For Unite
 nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
