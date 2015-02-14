@@ -25,7 +25,7 @@ function sufferanguishandloadrvm() {
 }
 
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
-if which hub > /dev/null 2>&1 ; then
+if which hub > /dev/null 2>&1 && which rvm > /dev/null 2>&1; then
   function git() {
     rvm default do =hub "$@"
   }
