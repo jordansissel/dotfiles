@@ -223,6 +223,18 @@ if filereadable(glob("~/.vimrc-private"))
   source ~/.vimrc-private
 endif
 
+" For ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
   let winnr = bufwinnr('^' . command . '$')
@@ -261,9 +273,3 @@ if executable('ack')
   let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
   let g:unite_source_grep_recursive_opt = ''
 endif
-
-if exists("$TMUX")
-  let g:slime_target = "tmux"
-  let g:slime_default_config = {"socket_name": "default", "target_pane": ":.1"}
-endif
-

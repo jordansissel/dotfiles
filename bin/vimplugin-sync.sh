@@ -36,15 +36,20 @@ purge() {
 }
 
 # Sync vim plugins
-vim_plugin https://github.com/scrooloose/nerdtree.git
+vim_plugin https://github.com/Lokaltog/vim-powerline.git
+vim_plugin https://github.com/Shougo/unite.vim.git
+#vim_plugin https://github.com/airblade/vim-gitgutter.git
 vim_plugin https://github.com/alfredodeza/posero.vim.git
 vim_plugin https://github.com/christoomey/vim-tmux-navigator.git
-vim_plugin https://github.com/Lokaltog/vim-powerline.git
-vim_plugin https://github.com/tpope/vim-fugitive.git
-vim_plugin https://github.com/Shougo/unite.vim.git
-vim_plugin https://github.com/zhaocai/unite-tmux.git
 vim_plugin https://github.com/myusuf3/numbers.vim.git 
-vim_plugin https://github.com/airblade/vim-gitgutter.git
+vim_plugin https://github.com/scrooloose/nerdtree.git
+vim_plugin https://github.com/scrooloose/syntastic.git
+vim_plugin https://github.com/tpope/vim-fugitive.git
+vim_plugin https://github.com/zhaocai/unite-tmux.git
+
+# Snippets
+vim_plugin https://github.com/honza/vim-snippets.git
+vim_plugin https://github.com/sirver/ultisnips.git
 
 purge "vimproc"
 purge "tagbar"
@@ -52,9 +57,10 @@ purge "vim-slime"
 purge "vim-colors-solarized"
 purge "vim-dispatch"
 purge "vim-multiple-cursors"
+purge "vim-gitgutter"
+purge "emmet-vim"
 #vim_plugin https://github.com/terryma/vim-multiple-cursors.git
 #vim_plugin https://github.com/Shougo/vimproc.vim.git
-#vim_plugin https://github.com/mattn/emmet-vim.git
 #vim_plugin https://github.com/majutsushi/tagbar.git
 #vim_plugin https://github.com/jpalardy/vim-slime.git
 #vim_plugin https://github.com/altercation/vim-colors-solarized.git
