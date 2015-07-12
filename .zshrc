@@ -445,10 +445,6 @@ function sgrep() {
   sed -rne '/^$/!H; /^$/ { x; /'"$re"'/p; }; ${ x; /'"$re"'/p; d; } ' "$@"
 }
 
-# Git tab completion is horrible and slow. Disable it.
-# Found here: http://stackoverflow.com/a/9810612
-compdef -d git
-
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
 rvm use >& /dev/null
