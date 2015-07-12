@@ -49,7 +49,8 @@ vim_plugin https://github.com/zhaocai/unite-tmux.git
 
 # Snippets
 vim_plugin https://github.com/honza/vim-snippets.git
-vim_plugin https://github.com/sirver/ultisnips.git
+#vim_plugin https://github.com/sirver/ultisnips.git
+purge ultisnips
 
 purge "vimproc"
 purge "tagbar"
