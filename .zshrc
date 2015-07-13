@@ -73,7 +73,10 @@ HISTFILE=~/.history_zsh
 #export GOPATH=/proc/$$/cwd
 function golang_is_very_disappointing_or_i_am_missing_something_obvious() {
   # OSX has no /proc so my previous use of /proc/$$/cwd doesn't work.
-  export GOPATH="${PWD}:${HOME}/projects/go"
+  #export GOPATH="${PWD}:${HOME}/projects/go"
+  
+  # I'm trying to use GOPATH the "intended" way, so let's put all projects in one gopath.
+  export GOPATH="${HOME}/projects/go"
 }
 
 # I hate ls colors...
@@ -172,8 +175,8 @@ addpaths ~/projects/tools
 addpaths /var/lib/gems/1.8/bin
 addpaths ~/gentoo/bin ~/gentoo/usr/bin
 PATH="$HOME/bin:$HOME/local/bin:$PATH"
-export GOROOT=$HOME/go
-addpaths $GOROOT/bin
+#export GOROOT=$HOME/go
+#addpaths $GOROOT/bin
 
 for i in $HOME/node_modules/*/bin ; do
   addpaths $i
