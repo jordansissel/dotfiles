@@ -21,6 +21,10 @@ set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
+
+" Run NERDTree always.
+autocmd vimenter * NERDTree
+
 set hidden
 
 " looks like vim's go support highlights leading and trailing whitespace.
@@ -169,55 +173,6 @@ map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 
 " Turn blinking off
 set guicursor=a:block-blinkoff1
 
-" PyBloxsom stuff
-augroup pybloxsom
-  autocmd BufReadPost */s/entries/*/*.txt call Pybloxsom_checkdate()
-  autocmd BufNewFile */s/entries/*/*.txt call Pybloxsom_putdate()
-  autocmd BufWritePost */s/entries/*/*.txt call Pybloxsom_fudgedate()
-augroup end
-
-function! Pybloxsom_checkdate() 
-  " Look in the file for '#mdate foo' metadata
-  normal 1G
-  let dateline = search("^#mdate")
-
-  " If not found, append the mdate of the file to line 2
-  if dateline < 1
-    " hack for using date+stat to generate the right date format.
-    let date = system("date -d \"January 1 1970 00:00:00 $(stat -c %Z " . expand("%") . ") seconds 8 hours ago\" \"+#mdate %b %d %H:%M:%S %Y\"")
-    " Add the date to the file on line 1
-    1put=date
-  endif
-endfunction
-
-function! Pybloxsom_putdate()
-  let date=strftime("#mdate %b %e %H:%M:%S %Y")
-  1put=date
-  goto 1
-endfunction
-
-function! Pybloxsom_fudgedate() 
-  " Mark our position
-  normal mZ
-
-  " Find mdate
-  let l=search("^#mdate")
-  let l=strpart(getline(l), 7)
-  " for freebsd?
-  "let cmd="date -j -f '%b %e %H:%M:%S %Y' '" . l . "' +%y%m%d%H%M"
-  "let touchtime=system(cmd)
-  "let touchcmd="touch -t '" . strpart(touchtime,0,strlen(touchtime)-1) . "' '" . expand("%") . "'"
-  
-  let touchcmd="touch -d '" . l . "' " . expand("%")
-  call system(touchcmd)
-  
-  " Reload the file (make vim notice the date change)
-  e
-
-  " Jump back to our old position
-  normal `Z
-endfunction
-
 " Things I don't want you to see! Neener neener neener.
 if filereadable(glob("~/.vimrc-private"))
   source ~/.vimrc-private
@@ -234,35 +189,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-function! s:ExecuteInShell(command)
-  let command = join(map(split(a:command), 'expand(v:val)'))
-  let winnr = bufwinnr('^' . command . '$')
-  let output = system(command)
-  if v:shell_error != 0
-    execute winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-
-    normal 1GdG
-    call append(".", split(output, "\n"))
-    "execute 'resize ' . line('$')
-    resize 5
-    redraw
-    autocmd BufEnter <buffer> resize 15
-    autocmd BufLeave <buffer> resize 5
-    execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-    execute 'nnoremap <silent> <buffer> q :q<CR>'
-  else
-    " Success, if the previous output buffer exists, delete and close it.
-    if winnr >= 0
-      execute "bdelete" winnr
-    end
-  endif
-endfunction
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-command! SelfTest Shell dk test %
-nnoremap <Leader>t :SelfTest<CR>
 
 au BufRead,BufNewFile *.go setlocal filetype=go
 

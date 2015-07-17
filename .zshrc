@@ -2,8 +2,8 @@ alias ls="ls -F"
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
-# Run vim with tabs enabled, no X11, and only load *my* vimrc.
-alias vim="vim -p -X -u $HOME/.vimrc"
+# Run vim with no X11 and only load *my* vimrc.
+alias vim="vim -X -u $HOME/.vimrc"
 
 # Lots of command examples (especially heroku) lead command docs with '$' which
 # make it kind of annoying to copy/paste, especially when there's multiple
