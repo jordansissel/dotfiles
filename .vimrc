@@ -24,6 +24,7 @@ autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't 
 
 " Run NERDTree always.
 autocmd vimenter * NERDTree
+let g:NERDTreeWinPos = "right"
 
 set hidden
 

@@ -451,3 +451,7 @@ function sgrep() {
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
 rvm use >& /dev/null
+
+export NVM_DIR="/home/jls/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
