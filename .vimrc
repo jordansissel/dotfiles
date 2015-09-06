@@ -140,16 +140,12 @@ let mapleader = "\ "
 nnoremap <Leader>n :NumbersToggle<CR>:set number!<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>o :NERDTree<CR>
-
-" Tagbar plugin
-"nnoremap <silent> <Leader>f :TagbarToggle<CR>
-
 " For Unite
 nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
 "  grep the word under the cursor
-nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
-nnoremap <silent> <Leader>b :Unite buffer<CR>
-nnoremap <silent> <Leader>w :echom system("git line-tags " . expand("%") . " " . line(".") . ' \| tr "\n" " "')<CR>
+"nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
+"nnoremap <silent> <Leader>b :Unite buffer<CR>
+"nnoremap <silent> <Leader>w :echom system("git line-tags " . expand("%") . " " . line(".") . ' \| tr "\n" " "')<CR>
 
 " Programming stuff
 ab XXX: TODO(sissel):

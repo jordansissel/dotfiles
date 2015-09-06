@@ -23,8 +23,10 @@ autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't 
 
 
 " Run NERDTree always.
-autocmd vimenter * NERDTree
-let g:NERDTreeWinPos = "right"
+"autocmd vimenter * NERDTree
+"autocmd vimenter * wincmd p
+let g:NERDTreeWinPos="right"
+let g:NERDTreeWinSize=30
 
 set hidden
 
@@ -75,7 +77,7 @@ set showmatch              " Show me matching close braces
 set ignorecase             " Case insensitive searching
 set smartcase              " Unless I really mean case sensitive
 set list                   " Show me whitespace where I care
-set number                 " Sometimes I like line numbers
+"set number                 " Sometimes I like line numbers
 
 " Some useful miscellaneous options
 set listchars=tab:⬪⬞
@@ -115,7 +117,6 @@ nnoremap ][ /}<CR>b99]}
 nnoremap ]] j0[[%/{<CR>
 nnoremap [] k$][%?}<CR>
 
-
 " Buffer movement
 nnoremap H :prev<CR>
 nnoremap L :next<CR>
@@ -137,19 +138,12 @@ autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:
 
 " Toggle relative/actual line numbers.
 let mapleader = "\ "
-nnoremap <Leader>n :NumbersToggle<CR>:set number!<CR>
+nnoremap <Leader>N :NumbersToggle<CR>:set number!<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>o :NERDTree<CR>
-
-" Tagbar plugin
-"nnoremap <silent> <Leader>f :TagbarToggle<CR>
-
-" For Unite
-nnoremap <silent> <Leader>a :execute "Unite grep:" . b:git_dir . "/../"<CR>
-"  grep the word under the cursor
-nnoremap <silent> <Leader>A :execute "Unite grep:" . b:git_dir . "/../::" . expand("<cword>")<CR>
-nnoremap <silent> <Leader>b :Unite buffer<CR>
-nnoremap <silent> <Leader>w :echom system("git line-tags " . expand("%") . " " . line(".") . ' \| tr "\n" " "')<CR>
+nnoremap <Leader>t :terminal zsh -li<CR>
+nnoremap <Leader>' :Unite buffer<CR>
+tnoremap <C-Space> <C-\><C-n>
 
 " Programming stuff
 ab XXX: TODO(sissel):
