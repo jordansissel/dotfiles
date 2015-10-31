@@ -171,29 +171,4 @@ map <silent> <Del> :if g:menubar == 1<CR>:set guioptions-=m<CR>:let g:menubar = 
 " Turn blinking off
 set guicursor=a:block-blinkoff1
 
-" Things I don't want you to see! Neener neener neener.
-if filereadable(glob("~/.vimrc-private"))
-  source ~/.vimrc-private
-endif
-
-" For ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 au BufRead,BufNewFile *.go setlocal filetype=go
-
-" Use ack for Unite's grep feature when possible.
-" Because ack is awesome.
-if executable('ack')
-  let g:unite_source_grep_command = 'ack'
-  let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
-  let g:unite_source_grep_recursive_opt = ''
-endif
