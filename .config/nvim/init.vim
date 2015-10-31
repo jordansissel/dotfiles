@@ -1,6 +1,5 @@
-set nocompatible           " Why would I use vim if I wanted it to act like vi?
 " Get pathogen going. Have to do 'set nocompatible' before calling pathogen.
-call pathogen#infect()
+"call pathogen#infect()
 
 " Make vim sane.
 set noincsearch            " incsearch is annoying
@@ -9,12 +8,12 @@ set foldclose=             " Automatic foldclosing is irritating too
 set noshowmode             " I know what mode I'm in
 set modeline
 set scrolloff=8 
-set backupdir=~/.vim/tmp
+set backupdir=~/.nvim/tmp
 
 " Set backup directory. End with two // to tell vim to use the full path name
 " of the file for the swapname. Without it, we could be editing 'foo.rb' in
 " two directories, simultaneously, and they would compete for swap file.
-set directory=~/.vim/tmp//
+set directory=~/.nvim/tmp//
 
 " Terminal beeps! ARGH. (╯°□°）╯︵ ┻━┻
 set noerrorbells           " I hate bells
@@ -30,7 +29,7 @@ let g:NERDTreeWinSize=30
 
 set hidden
 
-" looks like vim's go support highlights leading and trailing whitespace.
+" looks like vim's go support highlights whitespace.
 " it's fucking annoying, so let's turn it off
 let go_highlight_trailing_whitespace_error=0
 
@@ -64,7 +63,7 @@ set foldmethod=marker
 set background=dark
 
 " Keep state about my editing, thanks.
-set viminfo='50,\"1000,:100,n~/.viminfo
+set viminfo='50,\"1000,:100,n~/.nviminfo
 
 " Make backups, just in case?
 "set backup
@@ -99,11 +98,6 @@ if &term == "screen-256color"
 endif
 if &term == "screen-256color" || &term == "screen" || &term == "xterm"
   set title
-endif
-
-" Some plugins like to contain documentation, hurray!
-if isdirectory("~/.vim/doc")
-  helptags ~/.vim/doc
 endif
 
 " Allow filetype plugins (ft_plugin stuff)
