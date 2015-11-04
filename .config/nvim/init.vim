@@ -20,6 +20,8 @@ set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
+" neovim
+tnoremap <NUL> <C-\><C-n>
 
 " Run NERDTree always.
 "autocmd vimenter * NERDTree
@@ -143,8 +145,8 @@ tnoremap <C-Space> <C-\><C-n>
 ab XXX: TODO(sissel):
 
 " Tab and Window navigation
-noremap <C-n> :tabnext<CR>
-noremap <C-p> :tabprev<CR>
+noremap <C-n> :bnext<CR>
+noremap <C-p> :bprev<CR>
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
