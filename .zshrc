@@ -2,8 +2,12 @@ alias ls="ls -F"
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
-# Run vim with no X11 and only load *my* vimrc.
-alias vim="vim -X -u $HOME/.vimrc"
+if which nvim > /dev/null 2>&1 ; then
+  alias vim="nvim -X"
+else
+  # Run vim with no X11 and only load *my* vimrc.
+  alias vim="vim -X -u $HOME/.vimrc"
+fi
 
 # Lots of command examples (especially heroku) lead command docs with '$' which
 # make it kind of annoying to copy/paste, especially when there's multiple
