@@ -20,8 +20,12 @@ set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
 
+" Make <Leader> be the spacebar.
+let mapleader = "\ "
+
 " neovim
 tnoremap <NUL> <C-\><C-n>
+nnoremap <Leader>c :terminal zsh -li<CR>
 
 " vim-airline
 function ThisOrThat(var, default)
@@ -148,11 +152,9 @@ autocmd FileType git nnoremap K :cprev<CR>
 autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:// 
 
 " Toggle relative/actual line numbers.
-let mapleader = "\ "
 nnoremap <Leader>N :NumbersToggle<CR>:set number!<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>o :NERDTree<CR>
-nnoremap <Leader>t :terminal zsh -li<CR>
 nnoremap <Leader>' :Unite buffer<CR>
 tnoremap <C-Space> <C-\><C-n>
 
