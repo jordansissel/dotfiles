@@ -1,5 +1,5 @@
 " Get pathogen going. Have to do 'set nocompatible' before calling pathogen.
-"call pathogen#infect()
+call pathogen#infect()
 
 " Make vim sane.
 set noincsearch            " incsearch is annoying
@@ -23,9 +23,24 @@ autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't 
 " neovim
 tnoremap <NUL> <C-\><C-n>
 
-" Run NERDTree always.
-"autocmd vimenter * NERDTree
-"autocmd vimenter * wincmd p
+" vim-airline
+function ThisOrThat(var, default)
+  if exists(a:var) 
+    return eval(a:var)
+  else
+    return a:default
+  endif
+endfunction
+
+function BufferTitle()
+  " If we're in a terminal buffer, set the buffer title to be the terminal
+  " title.
+  return ThisOrThat('b:term_title', expand(airline#section#create(['file'])))
+endfunction
+
+let g:airline_section_c = airline#section#create(['%{BufferTitle()}', ' ', 'readonly'])
+
+" nerdtree
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 
