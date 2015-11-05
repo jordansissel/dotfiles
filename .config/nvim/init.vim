@@ -129,9 +129,15 @@ nnoremap ][ /}<CR>b99]}
 nnoremap ]] j0[[%/{<CR>
 nnoremap [] k$][%?}<CR>
 
-" Buffer movement
-nnoremap H :prev<CR>
-nnoremap L :next<CR>
+" Navigation
+nnoremap H :bprev<CR>
+nnoremap L :bnext<CR>
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprev<CR>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 
 " Miscellaneous auto commands
@@ -157,14 +163,6 @@ tnoremap <C-Space> <C-\><C-n>
 
 " Programming stuff
 ab XXX: TODO(sissel):
-
-" Tab and Window navigation
-noremap <C-n> :bnext<CR>
-noremap <C-p> :bprev<CR>
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
 
 " gVim specific settings, not that I really use this.
 set guioptions-=T     " Remove the toolbar and menubar
