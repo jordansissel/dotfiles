@@ -43,6 +43,7 @@ function BufferTitle()
 endfunction
 
 let g:airline_section_c = airline#section#create(['%{BufferTitle()}', ' ', 'readonly'])
+let g:airline#extensions#tabline#enabled = 1
 
 " nerdtree
 let g:NERDTreeWinPos="right"
@@ -130,8 +131,8 @@ nnoremap ]] j0[[%/{<CR>
 nnoremap [] k$][%?}<CR>
 
 " Navigation
-nnoremap H :bprev<CR>
-nnoremap L :bnext<CR>
+"nnoremap H :bprev<CR>
+"nnoremap L :bnext<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprev<CR>
 nnoremap <C-j> <C-W>j
