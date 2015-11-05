@@ -2,7 +2,8 @@
 
 vim_plugin() {
   repo="$1"
-  basedir="$HOME/.vim/bundle"
+  #basedir="$HOME/.vim/bundle"
+  basedir="$HOME/.config/nvim/bundle"
 
   [ ! -d "$basedir" ] && mkdir -p "$basedir"
 
