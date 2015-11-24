@@ -25,7 +25,7 @@ let mapleader = "\ "
 
 " neovim
 tnoremap <NUL> <C-\><C-n>
-nnoremap <Leader>c :terminal zsh -li<CR>
+nnoremap <Leader>t :terminal zsh -li<CR>
 
 " vim-airline
 function ThisOrThat(var, default)
