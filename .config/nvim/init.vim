@@ -24,8 +24,15 @@ autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't 
 let mapleader = "\ "
 
 " neovim
+" Make ctrl+spacebar break out of terminal insertion mode
 tnoremap <NUL> <C-\><C-n>
-nnoremap <Leader>t :terminal zsh -li<CR>
+
+command NewTerminal :terminal zsh -li<CR>
+nnoremap <Leader>t :NewTerminal<CR>
+" Make Leader-T start a new terminal in a new tab
+nnoremap <Leader>T :tabnew +NewTerminal<CR>
+" In a terminal, map ^C in normal mode to start insert mode and send ^C
+autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
 
 " vim-airline
 function ThisOrThat(var, default)
@@ -55,7 +62,7 @@ set hidden
 " it's fucking annoying, so let's turn it off
 let go_highlight_trailing_whitespace_error=0
 
-" Sometimes I don't have a keyboard with escape.
+" Sometimes I don't have a keyboard with escape (iPad keyboards, etc).
 imap jj <Esc>
 
 " Syntax and Color
