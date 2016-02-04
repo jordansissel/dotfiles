@@ -335,7 +335,7 @@ function title() {
       print -Pn "\e_${location}\e\\"  # screen location
       ;;
     xterm*)
-      print -Pn "\e]0;$value\a"
+      print -Pn "\e]0;$location ║ $value\a"
       ;;
   esac
   setopt LOCAL_OPTIONS
