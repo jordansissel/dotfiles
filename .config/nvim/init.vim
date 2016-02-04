@@ -1,24 +1,26 @@
 " Get pathogen going. Have to do 'set nocompatible' before calling pathogen.
 call pathogen#infect()
 
-" Make vim sane.
+" Disable annoyances
 set noincsearch            " incsearch is annoying
 set nohlsearch             " hlsearch is annoying
 set foldclose=             " Automatic foldclosing is irritating too
 set noshowmode             " I know what mode I'm in
 set modeline
-set scrolloff=8 
-set backupdir=~/.nvim/tmp
-
-" Set backup directory. End with two // to tell vim to use the full path name
-" of the file for the swapname. Without it, we could be editing 'foo.rb' in
-" two directories, simultaneously, and they would compete for swap file.
-set directory=~/.nvim/tmp//
-
 " Terminal beeps! ARGH. (╯°□°）╯︵ ┻━┻
 set noerrorbells           " I hate bells
 set visualbell             " But saying noerrorbells doesn't do it all
 autocmd VimEnter * set vb t_vb= " Make the visual bell zero time, so it doesn't blink.
+
+" Visual delights.
+set scrolloff=8 
+
+
+" Set backup directory. End with two // to tell vim to use the full path name
+" of the file for the swapname. Without it, we could be editing 'foo.rb' in
+" two directories, simultaneously, and they would compete for swap file.
+set backupdir=~/.nvim/tmp//
+set directory=~/.nvim/tmp//
 
 " Make <Leader> be the spacebar.
 let mapleader = "\ "
@@ -27,7 +29,7 @@ let mapleader = "\ "
 " Make ctrl+spacebar break out of terminal insertion mode
 tnoremap <NUL> <C-\><C-n>
 
-command NewTerminal :terminal zsh -li<CR>
+command NewTerminal :terminal zsh -li
 nnoremap <Leader>t :NewTerminal<CR>
 " Make Leader-T start a new terminal in a new tab
 nnoremap <Leader>T :tabnew +NewTerminal<CR>
@@ -79,7 +81,7 @@ set expandtab                   " When I hit tab, use spaces.
 set autoindent
 set nosmartindent               " smart indent isn't very smart.
 set cindent                     " Use c-style indentation
-set cinkeys=!^F                 " Only indent when requested
+set cinkeys=!^F                 " Only indent when requested (ctrl+f)
 set cinoptions=(0t0c1           " :help cinoptions-values
 
 " Text folding
@@ -164,9 +166,13 @@ autocmd FileType go setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:
 
 " Toggle relative/actual line numbers.
 nnoremap <Leader>N :NumbersToggle<CR>:set number!<CR>
+
+" Other mappings
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>o :NERDTree<CR>
 nnoremap <Leader>' :Unite buffer<CR>
+
+" ctrl+space to break out of terminal mode
 tnoremap <C-Space> <C-\><C-n>
 
 " Programming stuff
