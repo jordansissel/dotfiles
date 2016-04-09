@@ -28,6 +28,19 @@ function sufferanguishandloadrvm() {
   fi
 }
 
+function setuprvm() {
+  if [ ! -f "$HOME/.rvm/scripts/rvm" ] ; then
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    curl -sSL https://get.rvm.io | bash -s stable
+  fi
+
+  sufferanguishandloadrvm
+
+  rvm install ruby-2.3.0
+  rvm install jruby-9.0.5.0
+  rvm install jruby-1.7.24
+}
+
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
 if which hub > /dev/null 2>&1 && which rvm > /dev/null 2>&1; then
   function git() {
