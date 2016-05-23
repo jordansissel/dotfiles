@@ -470,6 +470,42 @@ function sgrep() {
   sed -rne '/^$/!H; /^$/ { x; /'"$re"'/p; }; ${ x; /'"$re"'/p; d; } ' "$@"
 }
 
+# Fun powershell vm stuff
+
+function host-powershell() {
+  # Send our command over ssh, but escaped/quoted.
+  # ${@:q} will produce an escaped eval-friendly text from the args array,
+  # and the gs/\\/\`/ will replace backslash with backtick (powershell's escape char)
+  host-ssh ". ../jls.FRIENDSHIP/documents/windows*/microsoft*.ps1; ${@:q:gs/\\/\`/}" 2> /dev/null
+}
+
+function host-ssh() {
+  #echo "host-ssh"
+  #echo "Args: $#"
+  #echo "${@}"
+  ssh "${SSH_CONNECTION%% *}" "$@"
+}
+
+function get-vm() {
+  host-powershell "get-vm" "$@"
+}
+
+function clone-vm() {
+  host-powershell "clone-vm" "$@"
+}
+
+function get-vmipv6address() {
+  host-powershell get-vmipv6address "$@"
+}
+
+function connect-vm() {
+  address="$(get-vmipv6address "$@")"
+  interface="$(echo "$SSH_CONNECTION" | fex '1%2')"
+
+  ssh -tt "${address}%${interface}"
+}
+
+
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
 rvm use >& /dev/null
