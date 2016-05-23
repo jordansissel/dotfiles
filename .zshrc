@@ -476,7 +476,16 @@ function host-powershell() {
   # Send our command over ssh, but escaped/quoted.
   # ${@:q} will produce an escaped eval-friendly text from the args array,
   # and the gs/\\/\`/ will replace backslash with backtick (powershell's escape char)
+
   host-ssh ". ../jls.FRIENDSHIP/documents/windows*/microsoft*.ps1; ${@:q:gs/\\/\`/}" 2> /dev/null
+}
+
+function host-powershell-stdin() {
+  # Send our command over ssh, but escaped/quoted.
+  # ${@:q} will produce an escaped eval-friendly text from the args array,
+  # and the gs/\\/\`/ will replace backslash with backtick (powershell's escape char)
+
+  host-ssh powershell -File -
 }
 
 function host-ssh() {
@@ -495,7 +504,8 @@ function clone-vm() {
 }
 
 function get-vmipv6address() {
-  host-powershell get-vmipv6address "$@"
+  echo ". ../jls.FRIENDSHIP/documents/windows*/microsoft*.ps1; get-vm ${@:q:gs/\\/\`/} | get-vmipv6address"  \
+    | host-powershell-stdin
 }
 
 function connect-vm() {
