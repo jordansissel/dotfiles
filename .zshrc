@@ -499,10 +499,11 @@ function get-vmipv6address() {
 }
 
 function connect-vm() {
-  address="$(get-vmipv6address "$@")"
+  address="$(get-vmipv6address "$@" | tr -d '\r\n')"
   interface="$(echo "$SSH_CONNECTION" | fex '1%2')"
 
-  ssh -tt "${address}%${interface}"
+  echo ssh "${address}%${interface}"
+  ssh "${address}%${interface}"
 }
 
 
