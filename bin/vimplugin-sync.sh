@@ -37,17 +37,18 @@ purge() {
 }
 
 # Sync vim plugins
-#vim_plugin https://github.com/airblade/vim-gitgutter.git
+vim_plugin https://github.com/airblade/vim-gitgutter.git
 #vim_plugin https://github.com/alfredodeza/posero.vim.git
 #vim_plugin https://github.com/christoomey/vim-tmux-navigator.git
 #vim_plugin https://github.com/myusuf3/numbers.vim.git 
 #vim_plugin https://github.com/scrooloose/syntastic.git
-#vim_plugin https://github.com/tpope/vim-fugitive.git
+vim_plugin https://github.com/tpope/vim-fugitive.git
 #vim_plugin https://github.com/zhaocai/unite-tmux.git
 vim_plugin https://github.com/Shougo/unite.vim.git
 vim_plugin https://github.com/bling/vim-airline.git
 vim_plugin https://github.com/scrooloose/nerdtree.git
 vim_plugin https://github.com/gcmt/taboo.vim.git
+vim_plugin https://github.com/tfnico/vim-gradle.git
 
 # Snippets
 #vim_plugin https://github.com/honza/vim-snippets.git

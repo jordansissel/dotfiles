@@ -107,7 +107,7 @@ set list                   " Show me whitespace where I care
 "set number                 " Sometimes I like line numbers
 
 " Some useful miscellaneous options
-set listchars=tab:⬪⬞
+set listchars=tab:├─
 set matchpairs+=<:>                 " match < > with the % command, too
 set complete=.,w,b,i,t,u          " For great completion justice...
 set backspace=indent,eol            " allow rational backspacing in insert mode
