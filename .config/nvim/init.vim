@@ -169,8 +169,10 @@ nnoremap <Leader>N :NumbersToggle<CR>:set number!<CR>
 
 " Other mappings
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>o :NERDTree<CR>
-nnoremap <Leader>' :Unite buffer<CR>
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <Leader>o :Unite -start-insert file_rec/neovim<CR>
+nnoremap <Leader>' :Unite -start-insert buffer<CR>
 
 " ctrl+space to break out of terminal mode
 tnoremap <C-Space> <C-\><C-n>
