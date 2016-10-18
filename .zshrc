@@ -201,6 +201,7 @@ HOME_PATHS="~/bin"
 addpaths $=BASE_PATHS $=X_PATHS $=LOCAL_PATHS $=SOLARIS_PATHS $=HOME_PATHS
 addpaths /opt/vagrant/bin
 addpaths ~/projects/tools
+addpaths /usr/local/heroku/bin
 addpaths /var/lib/gems/1.8/bin
 addpaths ~/gentoo/bin ~/gentoo/usr/bin
 PATH="$HOME/bin:$HOME/local/bin:$PATH"
