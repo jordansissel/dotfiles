@@ -2,8 +2,15 @@ alias ls="ls -F"
 which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
-if which nvim > /dev/null 2>&1 ; then
-  alias vim="nvim -X"
+alias gradle='if [ -f "./gradlew" ] ; then ./gradlew "$@"; else; \gradle "$@"; fi' -
+
+
+function has() {
+  which "$@" > /dev/null 2>&1
+}
+
+if has nvim ; then
+  alias vim="nvim"
 else
   # Run vim with no X11 and only load *my* vimrc.
   alias vim="vim -X -u $HOME/.vimrc"
@@ -32,7 +39,6 @@ if [[ -s "$HOME/.cargo/env" ]] ; then
   . "$HOME/.cargo/env"
 fi
 
-
 function setuprvm() {
   if [ ! -f "$HOME/.rvm/scripts/rvm" ] ; then
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -47,7 +53,7 @@ function setuprvm() {
 }
 
 # make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
-if which hub > /dev/null 2>&1 && which rvm > /dev/null 2>&1; then
+if has hub && has rvm ; then 
   function git() {
     rvm default do =hub "$@"
   }
@@ -68,8 +74,6 @@ function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
 }
 
-export LANG=en_US.UTF-8
-
 # Bundler behaves quite badly. Sometimes it writes the flags/config for the
 # current invocation to ./.bundle/config, and any future 'bundle install' 
 # invocations have their flags ignored, which is pretty dumb and causes
@@ -85,15 +89,14 @@ HISTSIZE=1048576
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.history_zsh
 
-# For some reason, golang doesn't have smart defaults. For pretty much every
-# invocation, I have to set 'GOPATH=$PWD' in environment. So this is a nice
-# hack to fix that problem:
-# This was supposed to get fixed before Go 1, but it was not: 
-# http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
-# This was previously /proc/self/cwd, but 'go build' changes directory, so now
-# it needs to be the working directory of the shell, not of 'go build'
-#export GOPATH=/proc/$$/cwd
-function golang_is_very_disappointing_or_i_am_missing_something_obvious() {
+function golang_is_very_weird() {
+  # Golang has some weird defaults. For pretty much every invocation, I have to
+  # set 'GOPATH=$PWD' in environment. So this is a nice hack to fix that problem:
+  # This was supposed to get fixed before Go 1, but it was not:
+  # http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
+  # This was previously /proc/self/cwd, but 'go build' now changes directory, so
+  # it needs to be the working directory of the shell, not of 'go build'
+  #export GOPATH=/proc/$$/cwd
   # OSX has no /proc so my previous use of /proc/$$/cwd doesn't work.
   #export GOPATH="${PWD}:${HOME}/projects/go"
   
@@ -101,18 +104,22 @@ function golang_is_very_disappointing_or_i_am_missing_something_obvious() {
   export GOPATH="${HOME}/projects/go"
 }
 
-# I hate ls colors...
-export LS_COLORS=
-
 # ^S and ^Q cause problems and I don't use them. Disable stty stop.
 stty stop ""
 stty start ""
 
 # Some environment defaults
+export LANG=en_US.UTF-8
+export LS_COLORS= # I hate ls colors...
 export RSYNC_RSH=ssh
-export EDITOR=vim
 export PAGER=less
 export LESS="-nXR"
+
+if has nvim ; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
 
 ## zsh options settings
 setopt no_beep                   # Beeping is annoying. Die.
@@ -293,7 +300,7 @@ function precmd() {
     esac
   fi
 
-  golang_is_very_disappointing_or_i_am_missing_something_obvious
+  golang_is_very_weird
 
   lastcmd=""
   refresh_git
@@ -515,7 +522,6 @@ function connect-vm() {
   echo ssh "${address}%${interface}"
   ssh "${address}%${interface}"
 }
-
 
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
