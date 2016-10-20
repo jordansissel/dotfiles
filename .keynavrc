@@ -121,3 +121,8 @@ a history-back
 #b cell-select 3x1      # down-left
 #n cell-select 3x3      # down-right
 #period cell-select 2x2 # center
+
+# IntelliJ
+ctrl+space sh xdotool key --clearmodifiers Ctrl+F9,end
+ctrl+r sh xdotool key --clearmodifiers Shift+F10,end
+r sh xdotool key --clearmodifiers Shift+F10,end
