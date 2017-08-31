@@ -4,7 +4,6 @@ unalias rm mv cp 2> /dev/null || true # no -i madness
 
 alias gradle='if [ -f "./gradlew" ] ; then ./gradlew "$@"; else; \gradle "$@"; fi' -
 
-
 function has() {
   which "$@" > /dev/null 2>&1
 }
@@ -32,6 +31,16 @@ function sufferanguishandloadrvm() {
   if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
     . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
     rvm use default > /dev/null 2>&1
+  fi
+}
+
+function loadrbenv() {
+  if [ -d "$HOME/.rbenv/bin" ] ; then
+    if ! which rbenv > /dev/null 2>&1 ; then
+      PATH="${PATH}:$HOME/.rbenv/bin"
+      eval "$(rbenv init -)"
+      rbenv shell 2.4.1
+    fi
   fi
 }
 
@@ -527,6 +536,7 @@ function connect-vm() {
 sufferanguishandloadrvm
 # Make rvm STFU about path warnings.
 rvm use >& /dev/null
+loadrbenv
 
 export NVM_DIR="/home/jls/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
