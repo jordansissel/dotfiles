@@ -154,6 +154,7 @@ bindkey -r "\e/" # let the vi keymap pick this up
 
 ## zsh zle and bindings
 bindkey -v                      # vi mode == win
+bindkey "^R" history-incremental-search-backward
 bindkey "\e_" insert-last-word
 bindkey "\e*" expand-word
 bindkey "\e=" list-expand
