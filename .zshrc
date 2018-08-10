@@ -1,5 +1,4 @@
 alias ls="ls -F"
-which vim > /dev/null 2>&1 && alias vi=vim
 unalias rm mv cp 2> /dev/null || true # no -i madness
 
 alias gradle='if [ -f "./gradlew" ] ; then ./gradlew "$@"; else; \gradle "$@"; fi' -
@@ -7,6 +6,10 @@ alias gradle='if [ -f "./gradlew" ] ; then ./gradlew "$@"; else; \gradle "$@"; f
 function has() {
   which "$@" > /dev/null 2>&1
 }
+
+if has vim ; then
+  alias vi=vim
+fi
 
 if has nvim ; then
   alias vim="nvim"
@@ -44,9 +47,11 @@ function loadrbenv() {
   fi
 }
 
-if [[ -s "$HOME/.cargo/env" ]] ; then
-  . "$HOME/.cargo/env"
-fi
+function setupcargo() {
+  if [[ -s "$HOME/.cargo/env" ]] ; then
+    . "$HOME/.cargo/env"
+  fi
+}
 
 function setuprvm() {
   if [ ! -f "$HOME/.rvm/scripts/rvm" ] ; then
@@ -73,7 +78,7 @@ fi
 # Note: On some systems, if you background vim (^Z) while running it in
 # this way, 'fg' will always hang. I don't know why. It seems to be
 # a bug on zsh and OS X.
-if which rvm > /dev/null 2>&1 ; then
+if has rvm ; then
   function vim() {
     rvm default do =vim -p -X -u $HOME/.vimrc "$@"
   }
@@ -542,3 +547,29 @@ loadrbenv
 export NVM_DIR="/home/jls/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+function awsmfa() {
+  eval "$(awsmfa_shell "$@")"
+  aws sts get-caller-identity
+}
+
+function awsmfa_shell() {
+  if [ -z "$MFA_ARN" ] ; then
+    echo "Missing \$MFA_ARN. Cannot continue."
+    return 1
+  fi
+
+  if [ "$#" -eq 0 ] ; then
+    read token?"MFA Token: "
+  else
+    token="$1"
+  fi
+
+  (
+    unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN;
+    aws sts get-session-token --serial-number $MFA_ARN --token-code $token \
+    | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\"\(.AccessKeyId)\" AWS_SECRET_ACCESS_KEY=\"\(.SecretAccessKey)\" AWS_SESSION_TOKEN=\"\(.SessionToken)\""'
+  )
+}
+
+
+[ -s "$HOME/.zshrc_private" ] && . "$HOME/.zshrc_private"
