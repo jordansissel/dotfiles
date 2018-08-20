@@ -1,0 +1,6 @@
+{
+    "gitlens.defaultDateStyle": "absolute",
+    "gitlens.defaultDateFormat": "YYYY-MM-dd HH:mm:ss",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontSize": "15",
+}
