@@ -330,7 +330,7 @@ function preexec() {
   # add '--' in case $1 is only one word to work around a bug in ${(z)foo}
   # in zsh 4.3.9.
   tmpcmd="$1 --"
-  args=${(z)tmpcmd}
+  args[1]=${(z)tmpcmd}
 
   # remove the '--' we added as a bug workaround..
   # per zsh manpages, removing an element means assigning ()
