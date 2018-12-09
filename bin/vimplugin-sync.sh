@@ -2,8 +2,8 @@
 
 vim_plugin() {
   repo="$1"
-  #basedir="$HOME/.vim/bundle"
-  basedir="$HOME/.config/nvim/bundle"
+  basedir="$HOME/.vim/bundle"
+  #basedir="$HOME/.config/nvim/bundle"
 
   [ ! -d "$basedir" ] && mkdir -p "$basedir"
 
@@ -74,6 +74,7 @@ purge "emmet-vim"
 #vim_plugin https://github.com/pydave/AsyncCommand.git
 #vim_plugin https://github.com/tpope/vim-unimpaired.git
 #vim_plugin https://github.com/tpope/vim-dispatch.git
+vim_plugin https://github.com/fatih/vim-go.git
 
 #make -C $HOME/.vim/bundle/vimproc.vim/ -f make_unix.mak
 
