@@ -240,6 +240,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("IncSearch", "708090", "f0e68c", "")
     call <SID>X("LineNr", "208020", "000000", "")
     call <SID>X("ModeMsg", "daa520", "", "")
+    call <SID>X("QuickFixLine", "daa520", "", "")
     call <SID>X("MoreMsg", "2e8b57", "", "")
     call <SID>X("NonText", "addbe7", "", "")
     call <SID>X("Question", "00ff7f", "", "")
