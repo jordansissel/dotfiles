@@ -30,13 +30,6 @@ function \$() {
   "$@"
 }
 
-function sufferanguishandloadrvm() {
-  if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
-    . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.
-    rvm use default > /dev/null 2>&1
-  fi
-}
-
 function loadrbenv() {
   if [ -d "$HOME/.rbenv/bin" ] ; then
     if ! which rbenv > /dev/null 2>&1 ; then
@@ -53,47 +46,9 @@ function setupcargo() {
   fi
 }
 
-function setuprvm() {
-  if [ ! -f "$HOME/.rvm/scripts/rvm" ] ; then
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-    curl -sSL https://get.rvm.io | bash -s stable
-  fi
-
-  sufferanguishandloadrvm
-
-  rvm install ruby-2.3.0
-  rvm install jruby-9.0.5.0
-  rvm install jruby-1.7.24
-}
-
-# make git run hub, but only in the 'default' rvm (ruby 1.9.3 usually)
-if has hub && has rvm ; then 
-  function git() {
-    rvm default do =hub "$@"
-  }
-fi
-
-# run vim outside the current rvm ruby. This avoids long startup
-# if our selected ruby is JRuby.
-# Note: On some systems, if you background vim (^Z) while running it in
-# this way, 'fg' will always hang. I don't know why. It seems to be
-# a bug on zsh and OS X.
-if has rvm ; then
-  function vim() {
-    rvm default do =vim -p -X -u $HOME/.vimrc "$@"
-  }
-fi
-
 function loadvirtualenv() {
   . "$HOME/.venvburrito/startup.sh"
 }
-
-# Bundler behaves quite badly. Sometimes it writes the flags/config for the
-# current invocation to ./.bundle/config, and any future 'bundle install' 
-# invocations have their flags ignored, which is pretty dumb and causes
-# me great pain. To fix that, let's always purge .bundle before running
-# bundler.
-alias bundle='rm -rf .bundle; bundle'
 
 # Defaults
 PSARGS=-ax
@@ -103,20 +58,6 @@ HISTSIZE=1048576
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.history_zsh
 
-function golang_is_very_weird() {
-  # Golang has some weird defaults. For pretty much every invocation, I have to
-  # set 'GOPATH=$PWD' in environment. So this is a nice hack to fix that problem:
-  # This was supposed to get fixed before Go 1, but it was not:
-  # http://groups.google.com/group/golang-nuts/browse_thread/thread/d97f06aca4e5a722/91b55924ae0685b8?show_docid=91b55924ae0685b8
-  # This was previously /proc/self/cwd, but 'go build' now changes directory, so
-  # it needs to be the working directory of the shell, not of 'go build'
-  #export GOPATH=/proc/$$/cwd
-  # OSX has no /proc so my previous use of /proc/$$/cwd doesn't work.
-  #export GOPATH="${PWD}:${HOME}/projects/go"
-  
-  # I'm trying to use GOPATH the "intended" way, so let's put all projects in one gopath.
-  export GOPATH="${HOME}/projects/go"
-}
 
 # ^S and ^Q cause problems and I don't use them. Disable stty stop.
 stty stop ""
@@ -128,6 +69,7 @@ export LS_COLORS= # I hate ls colors...
 export RSYNC_RSH=ssh
 export PAGER=less
 export LESS="-nXR"
+export GOPATH="${HOME}/projects/go"
 
 if has nvim ; then
   export EDITOR=nvim
@@ -301,9 +243,7 @@ HOST="$(hostname)"
 HOST="${HOST%%.*}"
 UNAME="$(uname)"
 
-# title/precmd/postcmd
 function precmd() {
-  title "zsh - $PWD"
   duration=$(( $(date +%s) - cmd_start_time ))
 
   # Notify if the previous command took more than 5 seconds.
@@ -316,70 +256,8 @@ function precmd() {
     esac
   fi
 
-  golang_is_very_weird
-
   lastcmd=""
   refresh_git
-}
-
-function preexec() {
-  # The full command line comes in as "$1"
-  local cmd="$1"
-  local -a args
-
-  # add '--' in case $1 is only one word to work around a bug in ${(z)foo}
-  # in zsh 4.3.9.
-  tmpcmd="$1 --"
-  args[1]=${(z)tmpcmd}
-
-  # remove the '--' we added as a bug workaround..
-  # per zsh manpages, removing an element means assigning ()
-  args[${#args}]=()
-  if [ "${args[1]}" = "fg" ] ; then
-    local jobnum="${args[2]}"
-    if [ -z "$jobnum" ] ; then
-      # If no jobnum specified, find the current job.
-      for i in ${(k)jobtexts}; do
-        [ -z "${jobstates[$i]%%*:+:*}" ] && jobnum=$i
-      done
-    fi
-    cmd="${jobtexts[${jobnum#%}]}"
-  fi
-
-  # These are used in precmd
-  cmd_start_time=$(date +%s)
-  lastcmd="$cmd"
-
-  title "$cmd"
-}
-
-function title() {
-  # This is madness.
-  # We replace literal '%' with '%%'
-  # Also use ${(V) ...} to make nonvisible chars printable (think cat -v)
-  # Replace newlines with '; '
-  local value="${${${(V)1//\%/\%\%}//'\n'/; }//'\t'/ }"
-  local location
-
-  location="$HOST"
-  [ "$USERNAME" != "$LOGNAME" ] && location="${USERNAME}@${location}"
-
-  # Special format for use with print -Pn
-  value="%70>...>$value%<<"
-  unset PROMPT_SUBST
-  case $TERM in
-    screen|screen-256color)
-      # Put this in your .screenrc:
-      # hardstatus string "[%n] %h - %t"
-      # termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen (not title yet)\007'
-      print -Pn "\ek${value}\e\\"     # screen title (in windowlist)
-      print -Pn "\e_${location}\e\\"  # screen location
-      ;;
-    xterm*)
-      print -Pn "\e]0;$location ║ $value\a"
-      ;;
-  esac
-  setopt LOCAL_OPTIONS
 }
 
 function config_SunOS() {
@@ -539,9 +417,6 @@ function connect-vm() {
   ssh "${address}%${interface}"
 }
 
-sufferanguishandloadrvm
-# Make rvm STFU about path warnings.
-rvm use >& /dev/null
 loadrbenv
 
 export NVM_DIR="/home/jls/.nvm"
