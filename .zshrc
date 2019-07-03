@@ -162,8 +162,8 @@ addpaths /usr/local/heroku/bin
 addpaths /var/lib/gems/1.8/bin
 addpaths ~/gentoo/bin ~/gentoo/usr/bin
 PATH="$HOME/bin:$HOME/local/bin:$PATH"
-#export GOROOT=$HOME/go
-#addpaths $GOROOT/bin
+export GOROOT=$HOME/go
+addpaths $GOROOT/bin
 
 for i in $HOME/node_modules/*/bin ; do
   addpaths $i
