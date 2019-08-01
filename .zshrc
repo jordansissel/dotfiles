@@ -35,7 +35,7 @@ function loadrbenv() {
     if ! which rbenv > /dev/null 2>&1 ; then
       PATH="${PATH}:$HOME/.rbenv/bin"
       eval "$(rbenv init -)"
-      rbenv shell 2.5.1
+      rbenv shell 2.6.3
     fi
   fi
 }
