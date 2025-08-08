@@ -258,6 +258,15 @@ function precmd() {
 
   lastcmd=""
   refresh_git
+
+  print -Pn -f "\033]2;<%s> @ %s\033\\" "$HOST" "%~"
+}
+
+function preexec() {
+  # $1 is the command as typed?
+  # $2 is the command after alias expanded, but truncated for length
+  # $3 is the command after expansion, with no truncation
+  print -n -f "\033]2;<%s> %s\033\\" "$HOST" "$1"
 }
 
 function config_SunOS() {
