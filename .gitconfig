@@ -5,3 +5,5 @@
   st = status -s
 [push]
   default = current
+[core]
+	whitespace = space-before-tab,-trailing-space
